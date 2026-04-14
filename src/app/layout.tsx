@@ -9,6 +9,7 @@ import Footer from './components/layout/footer'
 import ToasterContext from './api/contex/ToasetContex'
 import { WalletConnectProvider } from './contexts/WalletConnectContext'
 import GlobalUnhandledRejectionGuard from './components/GlobalUnhandledRejectionGuard'
+import IconifyBoot from './components/IconifyBoot'
 
 const font = Inter({
   subsets: ['latin'],
@@ -40,8 +41,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://api.iconify.design" crossOrigin="anonymous" />
+      </head>
       <body className={`${font.className}`} suppressHydrationWarning>
         <GlobalUnhandledRejectionGuard />
+        <IconifyBoot />
         <WalletConnectProvider>
           <ToasterContext />
           <Aoscompo>
