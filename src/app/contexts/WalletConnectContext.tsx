@@ -1,6 +1,6 @@
 "use client";
 
-import WalletConnectModal from "@/app/components/wallet-connect/WalletConnectModal";
+import dynamic from "next/dynamic";
 import {
   createContext,
   useCallback,
@@ -9,6 +9,11 @@ import {
   useState,
   type ReactNode,
 } from "react";
+
+const WalletConnectModal = dynamic(
+  () => import("@/app/components/wallet-connect/WalletConnectModal"),
+  { ssr: false }
+);
 
 type WalletConnectContextValue = {
   openWalletConnect: () => void;

@@ -18,6 +18,10 @@ const Header: React.FC = () => {
   };
 
   const handleClickOutside = (event: PointerEvent) => {
+    const el = event.target as HTMLElement | null;
+    if (el?.closest?.("[data-mobile-menu-button]")) {
+      return;
+    }
     if (
       mobileMenuRef.current &&
       !mobileMenuRef.current.contains(event.target as Node) &&
@@ -76,9 +80,12 @@ const Header: React.FC = () => {
               Connect Wallet
             </button>
             <button
+              type="button"
+              data-mobile-menu-button
               onClick={() => setNavbarOpen(!navbarOpen)}
-              className="block lg:hidden p-2 rounded-lg"
+              className="flex lg:hidden min-h-11 min-w-11 flex-col items-center justify-center rounded-lg p-2 touch-manipulation [-webkit-tap-highlight-color:transparent]"
               aria-label="Toggle mobile menu"
+              aria-expanded={navbarOpen}
             >
               <span className="block w-6 h-0.5 bg-white"></span>
               <span className="block w-6 h-0.5 bg-white mt-1.5"></span>
@@ -96,8 +103,10 @@ const Header: React.FC = () => {
         )}
         <div
           ref={mobileMenuRef}
-          className={`lg:hidden fixed top-0 right-0 z-[55] h-full w-full max-w-xs transform bg-darkmode shadow-lg transition-transform duration-300 ${
-            navbarOpen ? "translate-x-0" : "translate-x-full"
+          className={`lg:hidden fixed top-0 right-0 z-[55] h-full w-full max-w-xs transform bg-darkmode shadow-lg transition-transform duration-300 touch-manipulation ${
+            navbarOpen
+              ? "translate-x-0 pointer-events-auto"
+              : "translate-x-full pointer-events-none"
           }`}
         >
           <div className="flex items-center justify-between p-4">

@@ -8,7 +8,6 @@ import Header from './components/layout/header'
 import Footer from './components/layout/footer'
 import ToasterContext from './api/contex/ToasetContex'
 import { WalletConnectProvider } from './contexts/WalletConnectContext'
-import ClientMountGate from './components/ClientMountGate'
 import GlobalUnhandledRejectionGuard from './components/GlobalUnhandledRejectionGuard'
 
 const font = Inter({ subsets: ['latin'] })
@@ -39,25 +38,15 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body className={`${font.className}`} suppressHydrationWarning>
         <GlobalUnhandledRejectionGuard />
-        <ClientMountGate
-          fallback={
-            <div
-              className="min-h-screen bg-body-bg"
-              suppressHydrationWarning
-              aria-busy="true"
-            />
-          }
-        >
-          <WalletConnectProvider>
-            <ToasterContext />
-            <Aoscompo>
-              <Header />
-              {children}
-              <Footer />
-            </Aoscompo>
-            <ScrollToTop />
-          </WalletConnectProvider>
-        </ClientMountGate>
+        <WalletConnectProvider>
+          <ToasterContext />
+          <Aoscompo>
+            <Header />
+            {children}
+            <Footer />
+          </Aoscompo>
+          <ScrollToTop />
+        </WalletConnectProvider>
       </body>
     </html>
   )
