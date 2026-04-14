@@ -13,7 +13,7 @@ const Services = () => {
         <div className="relative z-10">
           <div className="mb-10 text-center">
             <p className="text-primary text-base sm:text-lg font-semibold mb-4">
-              SERVICES.
+              SERVICES
             </p>
             <h2 className="font-semibold mb-6 max-w-2xl mx-auto sm:leading-14 capitalize">
               Hands-on help across the full on-chain lifecycle
