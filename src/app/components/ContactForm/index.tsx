@@ -1,11 +1,7 @@
 "use client";
 
-import { useForm, ValidationError } from "@formspree/react";
-import {
-  FORMSPREE_CONTACT_ACTION,
-  FORMSPREE_CONTACT_FORM_ID,
-} from "@/lib/formspreeConfig";
-import React, { useEffect, useRef, useState } from "react";
+import { submitWeb3Forms } from "@/lib/web3formsConfig";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const emptyForm = {
@@ -20,11 +16,8 @@ const ContactForm = () => {
   const [formData, setFormData] = useState(emptyForm);
   const [showThanks, setShowThanks] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
-  const successHandled = useRef(false);
-
-  const [formspreeState, formspreeSubmit, resetFormspree] = useForm(
-    FORMSPREE_CONTACT_FORM_ID
-  );
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   useEffect(() => {
     const isValid = Object.values(formData).every(
@@ -34,18 +27,10 @@ const ContactForm = () => {
   }, [formData]);
 
   useEffect(() => {
-    if (!formspreeState.succeeded) {
-      successHandled.current = false;
-      return;
-    }
-    if (successHandled.current) return;
-    successHandled.current = true;
-    setShowThanks(true);
-    setFormData(emptyForm);
-    resetFormspree();
+    if (!showThanks) return;
     const t = window.setTimeout(() => setShowThanks(false), 5000);
     return () => window.clearTimeout(t);
-  }, [formspreeState.succeeded, resetFormspree]);
+  }, [showThanks]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -57,17 +42,32 @@ const ContactForm = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!isFormValid) return;
-    void formspreeSubmit(e).catch((reason: unknown) => {
-      console.error("[contact] Formspree submit failed", reason);
-      toast.error(
+    if (!isFormValid || submitting) return;
+    setFormError(null);
+    setSubmitting(true);
+    try {
+      await submitWeb3Forms({
+        subject: "Website contact",
+        email: formData.email.trim(),
+        name: `${formData.firstname} ${formData.lastname}`.trim(),
+        message: formData.Message.trim(),
+        phone: formData.phnumber.trim(),
+      });
+      setShowThanks(true);
+      setFormData(emptyForm);
+    } catch (reason: unknown) {
+      console.error("[contact] Web3Forms submit failed", reason);
+      const msg =
         reason instanceof Error
           ? reason.message
-          : "Could not send your message. Please try again."
-      );
-    });
+          : "Could not send your message. Please try again.";
+      setFormError(msg);
+      toast.error(msg);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -77,12 +77,9 @@ const ContactForm = () => {
           <h2 className="mb-9  capitalize">Get in Touch</h2>
           <div className="relative border border-lightblue/35 px-6 py-2 rounded-2xl">
             <form
-              action={FORMSPREE_CONTACT_ACTION}
-              method="POST"
-              onSubmit={handleSubmit}
+              onSubmit={(e) => void handleSubmit(e)}
               className="flex flex-wrap w-full m-auto justify-between"
             >
-              <input type="hidden" name="_subject" value="Website contact" />
               <div className="sm:flex gap-6 w-full">
                 <div className="mx-0 my-2.5 flex-1">
                   <label
@@ -100,12 +97,6 @@ const ContactForm = () => {
                     placeholder="John"
                     className="w-full text-base px-4 rounded-2xl py-2.5 border-lightblue/35 border transition-all duration-500 focus:border-primary focus:outline-0 placeholder:text-lightsky/40 text-white"
                   />
-                  <ValidationError
-                    prefix="First name"
-                    field="firstname"
-                    errors={formspreeState.errors}
-                    className="mt-1 text-sm text-primary"
-                  />
                 </div>
                 <div className="mx-0 my-2.5 flex-1">
                   <label
@@ -122,12 +113,6 @@ const ContactForm = () => {
                     onChange={handleChange}
                     placeholder="Doe"
                     className="w-full text-base px-4 rounded-2xl py-2.5 border-lightblue/35 border transition-all duration-500 focus:border-primary focus:outline-0 placeholder:text-lightsky/40 text-white"
-                  />
-                  <ValidationError
-                    prefix="Last name"
-                    field="lastname"
-                    errors={formspreeState.errors}
-                    className="mt-1 text-sm text-primary"
                   />
                 </div>
               </div>
@@ -148,12 +133,6 @@ const ContactForm = () => {
                     placeholder="john.doe@example.com"
                     className="w-full text-base px-4 rounded-2xl py-2.5 border-lightblue/35 border transition-all duration-500 focus:border-primary focus:outline-0 placeholder:text-lightsky/40 text-white"
                   />
-                  <ValidationError
-                    prefix="Email"
-                    field="email"
-                    errors={formspreeState.errors}
-                    className="mt-1 text-sm text-primary"
-                  />
                 </div>
                 <div className="mx-0 my-2.5 flex-1">
                   <label
@@ -170,12 +149,6 @@ const ContactForm = () => {
                     value={formData.phnumber}
                     onChange={handleChange}
                     className="w-full text-base px-4 rounded-2xl py-2.5 border-lightblue/35 border transition-all duration-500 focus:border-primary focus:outline-0 placeholder:text-lightsky/40 text-white"
-                  />
-                  <ValidationError
-                    prefix="Phone"
-                    field="phnumber"
-                    errors={formspreeState.errors}
-                    className="mt-1 text-sm text-primary"
                   />
                 </div>
               </div>
@@ -194,36 +167,24 @@ const ContactForm = () => {
                   className="w-full mt-2 rounded-2xl px-5 py-3 border-lightblue/35 border transition-all duration-500 focus:border-primary focus:outline-0 placeholder:text-lightsky/40 text-white"
                   placeholder="Anything else you wanna communicate"
                 />
-                <ValidationError
-                  prefix="Message"
-                  field="Message"
-                  errors={formspreeState.errors}
-                  className="mt-1 text-sm text-primary"
-                />
               </div>
-              {formspreeState.errors
-                ? formspreeState.errors.getFormErrors().map((err, i) => (
-                    <p
-                      key={`${err.code}-${i}`}
-                      className="mx-0 my-2 w-full text-sm text-primary"
-                      role="alert"
-                    >
-                      {err.message}
-                    </p>
-                  ))
-                : null}
+              {formError ? (
+                <p className="mx-0 my-2 w-full text-sm text-primary" role="alert">
+                  {formError}
+                </p>
+              ) : null}
               <div className="mx-0 my-2.5 w-full">
                 <button
                   type="submit"
-                  disabled={!isFormValid || formspreeState.submitting}
+                  disabled={!isFormValid || submitting}
                   className={`border leading-none px-6 text-lg font-medium py-4 rounded-full 
                     ${
-                      !isFormValid || formspreeState.submitting
+                      !isFormValid || submitting
                         ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                         : "bg-primary border-primary text-white hover:bg-transparent hover:text-primary cursor-pointer"
                     }`}
                 >
-                  {formspreeState.submitting ? "Sending…" : "Submit"}
+                  {submitting ? "Sending…" : "Submit"}
                 </button>
               </div>
             </form>

