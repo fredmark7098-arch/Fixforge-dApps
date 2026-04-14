@@ -1,0 +1,136 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --shadow-mentor-shadow: 0px 4px 20px rgba(110, 127, 185, 0.1);
+
+  --inset-54\%: 54%;
+  --inset-40\%: 40%;
+
+  --color-primary: #bd24df;
+  --color-secondary: #2d6ade;
+  --color-body-bg: #040d26;
+  --color-darkmode: #0c1b44;
+  --color-tablebg: #132259;
+  --color-border: #091945;
+  --color-lightblue: #8a9bca;
+  --color-lightsky: #ecf2ff;
+  --color-lightpurple: #b4c7ed;
+
+  /* Legacy tokens still referenced across components (Tailwind v3 config parity) */
+  --color-midnight_text: #263238;
+  --color-body-color: #637381;
+  --color-body-secondary: #8899a8;
+  --color-muted: #94a3b8;
+  --color-dark_border: #959595;
+  --color-dark_grey: #1e2229;
+  --color-stroke: #dfe7ef;
+  --color-dark-3: #334155;
+  --color-black-6: #6b7280;
+  --color-dark-6: #9ca3af;
+  --color-slateGray: #475569;
+  --color-error: #cf3127;
+  --color-warning: #f7931a;
+  --color-darklight: #0c372a;
+
+  --text-18: 1.125rem;
+  --text-21: 1.3125rem;
+
+  --blur-390: 390px;
+
+  --background-image-banner-image: linear-gradient(
+    90deg,
+    #bd24df80,
+    #2d6ade80 97.15%
+  );
+  --background-image-simple-bg: linear-gradient(
+    90deg,
+    rgba(189, 36, 223, 0.1),
+    rgba(45, 106, 222, 0.1) 97.15%
+  );
+  --background-image-arrow-bg: url('/images/simple/arrow-bg.png');
+  --background-image-newsletter: url('/images/newsletter/hands.svg');
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  section {
+    @apply py-14 bg-body-bg;
+  }
+
+  /* Hero is offset by fixed header via main padding; skip default section top padding */
+  section#home-section {
+    padding-top: 0;
+  }
+
+  h1 {
+    @apply text-white font-bold lg:text-7xl sm:text-6xl text-5xl;
+  }
+
+  h2 {
+    @apply text-lightsky sm:text-5xl text-4xl font-bold;
+  }
+}
+
+@layer utilities {
+  .container {
+    @apply max-w-7xl mx-auto w-full px-4;
+  }
+
+  .verticalLine {
+    @apply w-px shrink-0 self-stretch bg-lightblue/40;
+  }
+}
+
+/*
+  Slick Carousel uses float:left for horizontal slides. Tailwind preflight and
+  flex contexts elsewhere can prevent floats from sitting in one row, so slides
+  stack vertically. Flex track matches what react-slick expects once widths are set.
+*/
+@layer components {
+  .companies-slick .slick-track {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+  }
+
+  .companies-slick .slick-slide {
+    float: none !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+  }
+
+  .companies-slick .slick-slide > div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 0;
+  overflow-x: hidden;
+  background-color: var(--color-body-bg);
+}
