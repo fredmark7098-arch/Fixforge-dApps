@@ -6,7 +6,7 @@ const Features = () => {
   return (
     <section id="features-section" className="scroll-mt-20">
       <div className="container relative">
-        <div className="bg-linear-to-r from-primary to-secondary absolute w-full h-full top-0 -left-1/4 blur-390"></div>
+        <div className="bg-linear-to-r from-primary to-secondary absolute w-full h-full top-0 -left-1/4 blur-[64px] sm:blur-[120px] lg:blur-[390px]"></div>
         <div className=" gap-x-4 gap-y-4 relative z-10">
           {/* Column-1 */}
           <div className="mb-10">

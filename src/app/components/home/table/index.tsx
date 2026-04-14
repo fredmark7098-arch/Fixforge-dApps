@@ -143,6 +143,8 @@ const Table = () => {
         alt=""
         width={2460}
         height={102}
+        loading="lazy"
+        sizes="100vw"
         className="h-auto w-full max-w-full"
       />
     </section>

@@ -6,7 +6,7 @@ import Image from "next/image";
 const Work = () => {
   return (
     <section className="relative ">
-      <div className="bg-banner-image absolute w-full h-full right-auto blur-390" />
+      <div className="bg-banner-image absolute w-full h-full right-auto blur-[64px] sm:blur-[120px] lg:blur-[390px]" />
       <div className="container">
         <div className="text-center mb-14">
           <h2 className="mb-3 capitalize">How It Works</h2>

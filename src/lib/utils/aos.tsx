@@ -1,31 +1,47 @@
 'use client'
 import { useEffect, type ReactNode } from "react";
-import AOS from "aos"
-import 'aos/dist/aos.css';
 
-const Aoscompo = ({ children }: { children: ReactNode }) => {
+/**
+ * Loads AOS only on viewports where scroll animations are enabled (desktop, motion OK).
+ * Avoids parsing ~tens of KB of AOS + CSS on phones where we skip animations anyway.
+ */
+export default function Aoscompo({ children }: { children: ReactNode }) {
   useEffect(() => {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const narrow = window.matchMedia('(max-width: 767px)')
-    AOS.init({
-      duration: 600,
-      once: true,
-      offset: 24,
-      disable: () => reduceMotion.matches || narrow.matches,
-    })
-    const refresh = () => AOS.refresh()
-    reduceMotion.addEventListener('change', refresh)
-    narrow.addEventListener('change', refresh)
+    const narrow = window.matchMedia("(max-width: 767px)")
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+
+    let cancelled = false
+
+    const maybeInit = async () => {
+      if (narrow.matches || reduceMotion.matches) return
+
+      const [{ default: AOS }] = await Promise.all([
+        import("aos"),
+        import("aos/dist/aos.css"),
+      ])
+      if (cancelled) return
+
+      AOS.init({
+        duration: 600,
+        once: true,
+        offset: 24,
+      })
+    }
+
+    void maybeInit()
+
+    const onChange = () => {
+      void maybeInit()
+    }
+    narrow.addEventListener("change", onChange)
+    reduceMotion.addEventListener("change", onChange)
+
     return () => {
-      reduceMotion.removeEventListener('change', refresh)
-      narrow.removeEventListener('change', refresh)
+      cancelled = true
+      narrow.removeEventListener("change", onChange)
+      reduceMotion.removeEventListener("change", onChange)
     }
   }, [])
-  return (
-    <div>
-      {children}
-    </div>
-  )
-}
 
-export default Aoscompo
+  return <>{children}</>
+}

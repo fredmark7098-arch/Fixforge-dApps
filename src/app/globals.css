@@ -98,30 +98,25 @@
   }
 }
 
-/*
-  Slick Carousel uses float:left for horizontal slides. Tailwind preflight and
-  flex contexts elsewhere can prevent floats from sitting in one row, so slides
-  stack vertically. Flex track matches what react-slick expects once widths are set.
-*/
 @layer components {
-  .companies-slick .slick-track {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center;
+  /* Lightweight logo strip — CSS-only marquee (no react-slick on mobile). */
+  @keyframes logos-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
   }
 
-  .companies-slick .slick-slide {
-    float: none !important;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    height: auto;
+  .logos-marquee {
+    animation: logos-marquee 40s linear infinite;
   }
 
-  .companies-slick .slick-slide > div {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+  @media (prefers-reduced-motion: reduce) {
+    .logos-marquee {
+      animation: none;
+    }
   }
 }
 

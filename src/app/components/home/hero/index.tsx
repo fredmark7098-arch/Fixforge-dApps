@@ -19,7 +19,7 @@ const Banner = () => {
 
   return (
     <section className="relative pb-0" id="home-section">
-      <div className="bg-banner-image absolute w-full h-full top-0 blur-390"></div>
+      <div className="bg-banner-image absolute w-full h-full top-0 blur-[64px] sm:blur-[120px] lg:blur-[390px]"></div>
       <div className="overflow-hidden">
         <div className="container lg:pt-20 pt-10 relative">
           <div className="relative z-10">
@@ -59,9 +59,12 @@ const Banner = () => {
               <div className="lg:col-span-5 lg:-m-48 -m-20 overflow-hidden">
                 <Image
                   src={getImagePath("/images/banner/banner.png")}
-                  alt="nothing"
+                  alt=""
                   width={1013}
                   height={760}
+                  priority
+                  sizes="(max-width: 1023px) 100vw, 45vw"
+                  className="h-auto w-full max-w-full"
                 />
               </div>
             </div>
