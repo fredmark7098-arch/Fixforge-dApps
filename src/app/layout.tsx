@@ -14,10 +14,13 @@ import GlobalUnhandledRejectionGuard from './components/GlobalUnhandledRejection
 const font = Inter({ subsets: ['latin'] })
 
 
-/** Static file in /public — avoids a webpack-split app/favicon route that breaks dev when .next is stale. */
+/** Static files in /public — avoids a webpack-split app/favicon route that breaks dev when .next is stale. */
 export const metadata: Metadata = {
   icons: {
-    icon: [{ url: `${SITE_BASE_PATH}/favicon.ico`, sizes: 'any' }],
+    icon: [
+      { url: `${SITE_BASE_PATH}/favicon.svg`, type: 'image/svg+xml' },
+      { url: `${SITE_BASE_PATH}/favicon.ico`, sizes: 'any' },
+    ],
   },
 }
 
