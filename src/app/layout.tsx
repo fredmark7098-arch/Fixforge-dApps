@@ -10,7 +10,11 @@ import ToasterContext from './api/contex/ToasetContex'
 import { WalletConnectProvider } from './contexts/WalletConnectContext'
 import GlobalUnhandledRejectionGuard from './components/GlobalUnhandledRejectionGuard'
 
-const font = Inter({ subsets: ['latin'] })
+const font = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  adjustFontFallback: true,
+})
 
 
 /** Static files in /public — avoids a webpack-split app/favicon route that breaks dev when .next is stale. */
