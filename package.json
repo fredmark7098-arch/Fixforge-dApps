@@ -2,6 +2,9 @@
   "name": "crypto_project",
   "version": "2.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18.18.0"
+  },
   "scripts": {
     "prebuild": "node scripts/ensure-build-diagnostics.js",
     "predev": "node scripts/ensure-build-diagnostics.js",
