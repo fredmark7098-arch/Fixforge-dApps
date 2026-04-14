@@ -27,6 +27,7 @@ export default function Home() {
       <Trade />
       <Faq />
       <ContactForm />
+      
     </main>
   );
 }
