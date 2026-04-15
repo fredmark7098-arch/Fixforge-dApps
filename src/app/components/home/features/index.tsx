@@ -1,6 +1,6 @@
 "use client";
+import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { Featuresdata } from "@/lib/data/pageData";
-import Image from "next/image";
 
 const Features = () => {
   return (
@@ -31,12 +31,13 @@ const Features = () => {
                   key={i}
                 >
                   <div className="rounded-full bg-linear-to-r from-primary to-secondary w-fit p-4 flex items-center justify-center">
-                    <Image
+                    <ConnectWalletImage
                       src={items.imgSrc}
-                      alt={items.imgSrc}
+                      alt={items.heading}
                       width={60}
                       height={60}
                       className="w-auto"
+                      buttonClassName="cursor-pointer"
                     />
                   </div>
                   <h5 className="text-white/80 text-lg font-medium capitalize">

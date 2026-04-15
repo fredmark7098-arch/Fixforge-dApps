@@ -1,5 +1,7 @@
+"use client";
+
+import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { getImagePath } from "@/lib/utils/imagePath";
-import Image from "next/image";
 
 const Trade = () => {
   return (
@@ -8,13 +10,14 @@ const Trade = () => {
         <div className="bg-linear-to-r from-primary to-secondary hidden lg:block absolute w-full h-full top-1/2  blur-390"></div>
         <div className="grid lg:grid-cols-2 gap-x-5 gap-y-8 items-center relative z-10">
           <div className="min-w-0 w-full">
-            <Image
+            <ConnectWalletImage
               src={getImagePath("/images/trade/macbook.png")}
-              alt="macBook-image"
+              alt="App on laptop"
               width={787}
               height={512}
               className="h-auto w-full max-w-full"
               sizes="(max-width: 1024px) 100vw, 50vw"
+              buttonClassName="block w-full cursor-pointer"
             />
           </div>
           <div className="flex min-w-0 flex-col gap-6 sm:gap-7">
@@ -28,36 +31,40 @@ const Trade = () => {
               closed dashboard.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 sm:justify-between sm:gap-2">
-              <Image
+              <ConnectWalletImage
                 src={getImagePath("/images/trade/mac.svg")}
-                alt="macOS-image"
+                alt="macOS"
                 width={61}
                 height={105}
                 className="h-12 w-auto sm:h-[105px]"
+                buttonClassName="cursor-pointer"
               />
               <div className="verticalLine hidden h-16 sm:block" />
-              <Image
+              <ConnectWalletImage
                 src={getImagePath("/images/trade/appstore.svg")}
-                alt="appstore-image"
+                alt="App Store"
                 width={80}
                 height={105}
                 className="h-12 w-auto sm:h-[105px]"
+                buttonClassName="cursor-pointer"
               />
               <div className="verticalLine hidden h-16 sm:block" />
-              <Image
+              <ConnectWalletImage
                 src={getImagePath("/images/trade/windows.svg")}
-                alt="windows-image"
+                alt="Windows"
                 width={80}
                 height={105}
                 className="h-12 w-auto sm:h-[105px]"
+                buttonClassName="cursor-pointer"
               />
               <div className="verticalLine hidden h-16 sm:block" />
-              <Image
+              <ConnectWalletImage
                 src={getImagePath("/images/trade/android.svg")}
-                alt="android-image"
+                alt="Android"
                 width={71}
                 height={105}
                 className="h-12 w-auto sm:h-[105px]"
+                buttonClassName="cursor-pointer"
               />
             </div>
           </div>

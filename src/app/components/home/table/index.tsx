@@ -1,8 +1,8 @@
 "use client";
 
+import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { useWalletConnect } from "@/app/contexts/WalletConnectContext";
 import { getImagePath } from "@/lib/utils/imagePath";
-import Image from "next/image";
 
 interface table {
   index: number;
@@ -95,12 +95,13 @@ const Table = () => {
                     </td>
                     <td className="px-2 py-4 text-white sm:px-4 sm:py-6">
                       <div className="flex min-w-0 items-center justify-start gap-2 sm:gap-5">
-                        <Image
+                        <ConnectWalletImage
                           src={items.imgSrc}
-                          alt=""
+                          alt={items.name}
                           height={50}
                           width={50}
                           className="h-9 w-9 shrink-0 sm:h-[50px] sm:w-[50px]"
+                          buttonClassName="shrink-0 cursor-pointer"
                         />
                         <span className="min-w-0 text-left text-xs sm:text-base">
                           {items.name}
@@ -138,14 +139,15 @@ const Table = () => {
           </div>
         </div>
       </div>
-      <Image
+      <ConnectWalletImage
         src={getImagePath("/images/table/Untitled.svg")}
-        alt=""
+        alt="Network illustration"
         width={2460}
         height={102}
         loading="lazy"
         sizes="100vw"
         className="h-auto w-full max-w-full"
+        buttonClassName="block w-full cursor-pointer"
       />
     </section>
   );

@@ -1,8 +1,8 @@
 "use client";
 
+import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { getImagePath } from "@/lib/utils/imagePath";
 import { Icon } from "@iconify/react";
-import Image from "next/image";
 import type { ReactNode } from "react";
 
 /** Encode spaces for static filenames under /public. */
@@ -82,16 +82,15 @@ function Showcase({ id, title, body, imageSrc, imageAlt }: ShowcaseProps) {
         <div className="mx-auto mb-10 max-w-3xl text-center text-base leading-relaxed text-white/70 md:text-lg">
           {body}
         </div>
-        <div className={glowImage}>
-          <Image
-            src={assetPath(imageSrc)}
-            alt={imageAlt}
-            width={1200}
-            height={675}
-            className="h-auto w-full object-cover"
-            sizes="(max-width: 1024px) 100vw, 80vw"
-          />
-        </div>
+        <ConnectWalletImage
+          src={assetPath(imageSrc)}
+          alt={imageAlt}
+          width={1200}
+          height={675}
+          className="h-auto w-full object-cover"
+          sizes="(max-width: 1024px) 100vw, 80vw"
+          buttonClassName={`${glowImage} block w-full cursor-pointer`}
+        />
       </div>
     </section>
   );
@@ -192,16 +191,15 @@ export default function MaxirchainLandingSections() {
             on-chain truth, and practical UX so your collections look right
             everywhere.
           </p>
-          <div className={glowImage}>
-            <Image
-              src={assetPath("/images/assets/why-choose-nft.jpg")}
-              alt="NFT collections and marketplace display"
-              width={1200}
-              height={675}
-              className="h-auto w-full object-cover"
-              sizes="(max-width: 1024px) 100vw, 80vw"
-            />
-          </div>
+          <ConnectWalletImage
+            src={assetPath("/images/assets/why-choose-nft.jpg")}
+            alt="NFT collections and marketplace display"
+            width={1200}
+            height={675}
+            className="h-auto w-full object-cover"
+            sizes="(max-width: 1024px) 100vw, 80vw"
+            buttonClassName={`${glowImage} block w-full cursor-pointer`}
+          />
           <div className="mx-auto mt-6 flex max-w-5xl flex-col divide-y divide-white/10 rounded-2xl border border-white/10 bg-black/35 backdrop-blur-sm sm:flex-row sm:divide-x sm:divide-y-0">
             {(
               [
@@ -231,16 +229,15 @@ export default function MaxirchainLandingSections() {
             Fixforge-dApps. Faster resolution, safer execution, and fewer
             retries are the reasons users stick with our guided flows.
           </p>
-          <div className={glowImage}>
-            <Image
-              src={assetPath("/images/assets/what-our-user-say-2.jpg")}
-              alt="User testimonials"
-              width={1200}
-              height={675}
-              className="h-auto w-full object-cover"
-              sizes="(max-width: 1024px) 100vw, 80vw"
-            />
-          </div>
+          <ConnectWalletImage
+            src={assetPath("/images/assets/what-our-user-say-2.jpg")}
+            alt="User testimonials"
+            width={1200}
+            height={675}
+            className="h-auto w-full object-cover"
+            sizes="(max-width: 1024px) 100vw, 80vw"
+            buttonClassName={`${glowImage} block w-full cursor-pointer`}
+          />
         </div>
       </section>
 
@@ -321,16 +318,15 @@ export default function MaxirchainLandingSections() {
           </p>
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="order-2 lg:order-1">
-              <div className={glowImage + " lg:mx-0"}>
-                <Image
-                  src={getImagePath("/images/assets/contact-us.jpg")}
-                  alt="Security and cross-chain team"
-                  width={900}
-                  height={600}
-                  className="h-auto w-full object-cover"
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                />
-              </div>
+              <ConnectWalletImage
+                src={getImagePath("/images/assets/contact-us.jpg")}
+                alt="Security and cross-chain team"
+                width={900}
+                height={600}
+                className="h-auto w-full object-cover"
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                buttonClassName={`${glowImage} lg:mx-0 block w-full cursor-pointer`}
+              />
             </div>
             <div className="order-1 lg:order-2">
               <p className="text-lg leading-relaxed text-white/75">

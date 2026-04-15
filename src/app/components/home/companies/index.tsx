@@ -1,7 +1,7 @@
 "use client";
 
+import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { Companiesdata } from "@/lib/data/pageData";
-import Image from "next/image";
 
 function LogoCells({ suffix }: { suffix: string }) {
   return (
@@ -11,12 +11,13 @@ function LogoCells({ suffix }: { suffix: string }) {
           key={`${suffix}-${i}`}
           className="flex shrink-0 items-center justify-center px-6 md:px-8"
         >
-          <Image
+          <ConnectWalletImage
             src={item.imgSrc}
-            alt=""
+            alt="Partner logo"
             width={203}
             height={101}
             className="h-auto w-[120px] object-contain opacity-90 sm:w-[140px] md:w-auto"
+            buttonClassName="cursor-pointer"
           />
         </div>
       ))}

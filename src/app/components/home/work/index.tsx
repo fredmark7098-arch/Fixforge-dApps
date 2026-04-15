@@ -1,7 +1,7 @@
 "use client";
+import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { workdata } from "@/lib/data/pageData";
 import { getImagePath } from "@/lib/utils/imagePath";
-import Image from "next/image";
 
 const Work = () => {
   return (
@@ -23,19 +23,21 @@ const Work = () => {
               key={i}
             >
               <div className="rounded-full flex justify-center absolute -top-10 left-40% p-6 bg-linear-to-r from-primary to-secondary">
-                <Image
+                <ConnectWalletImage
                   src={items.imgSrc}
-                  alt={items.imgSrc}
+                  alt={items.heading}
                   width={44}
                   height={44}
+                  buttonClassName="cursor-pointer"
                 />
               </div>
               <div>
-                <Image
+                <ConnectWalletImage
                   src={getImagePath("/images/icons/bg-arrow.svg")}
-                  alt="arrow-bg"
+                  alt="Decorative arrow"
                   width={85}
                   height={35}
+                  buttonClassName="cursor-pointer"
                 />
               </div>
               <p className="text-2xl text-white/80 font-semibold text-center mt-8 capitalize">

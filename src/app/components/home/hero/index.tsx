@@ -1,8 +1,8 @@
 "use client";
 
 import { useWalletConnect } from "@/app/contexts/WalletConnectContext";
+import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { getImagePath } from "@/lib/utils/imagePath";
-import Image from "next/image";
 import { BinaryColumns } from "./BinaryColumns";
 
 const gridStyle = {
@@ -48,14 +48,15 @@ const Banner = () => {
 
         {/* Main hero */}
         <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4 pb-16 pt-28 text-center sm:pt-32 md:pt-36">
-          <div className="hero-enter mb-8 drop-shadow-[0_0_32px_rgba(168,85,247,0.45)]">
-            <Image
+          <div className="hero-enter mb-8 flex justify-center drop-shadow-[0_0_32px_rgba(168,85,247,0.45)]">
+            <ConnectWalletImage
               src={getImagePath("/images/assets/1.jpg")}
-              alt=""
+              alt="Fixforge-dApps"
               width={120}
               height={120}
               priority
-              className="mx-auto h-24 w-24 rounded-2xl object-cover sm:h-28 sm:w-28 md:h-32 md:w-32"
+              buttonClassName="cursor-pointer rounded-2xl"
+              className="h-24 w-24 rounded-2xl object-cover sm:h-28 sm:w-28 md:h-32 md:w-32"
             />
           </div>
 

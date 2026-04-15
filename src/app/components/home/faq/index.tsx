@@ -1,4 +1,5 @@
 "use client";
+import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { Faqdata } from "@/lib/data/pageData";
 import { getImagePath } from "@/lib/utils/imagePath";
 import {
@@ -7,7 +8,6 @@ import {
   DisclosurePanel,
 } from "@headlessui/react";
 import { Icon } from "@iconify/react";
-import Image from "next/image";
 
 const Faq = () => {
   return (
@@ -53,12 +53,13 @@ const Faq = () => {
               </div>
             </div>
             <div className="-m-48 absolute -right-32">
-              <Image
+              <ConnectWalletImage
                 src={getImagePath("/images/faq/faq.svg")}
-                alt="faq-image"
+                alt="FAQ illustration"
                 width={941}
                 height={379}
                 className="w-auto sm:block hidden"
+                buttonClassName="hidden cursor-pointer sm:block"
               />
             </div>
           </div>
