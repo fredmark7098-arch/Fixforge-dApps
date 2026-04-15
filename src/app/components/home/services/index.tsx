@@ -1,5 +1,6 @@
 "use client";
 
+import { RevealOnView } from "@/app/components/shared/RevealOnView";
 import { useWalletConnect } from "@/app/contexts/WalletConnectContext";
 import { Servicesdata } from "@/lib/data/pageData";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -9,7 +10,7 @@ const Services = () => {
 
   return (
     <section id="services-section" className="scroll-mt-20">
-      <div className="container relative">
+      <RevealOnView className="container relative">
         <div className="relative z-10">
           <div className="mb-10 text-center">
             <p className="text-primary text-base sm:text-lg font-semibold mb-4">
@@ -64,7 +65,7 @@ const Services = () => {
             </button>
           </div>
         </div>
-      </div>
+      </RevealOnView>
     </section>
   );
 };

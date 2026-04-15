@@ -1,6 +1,7 @@
 "use client";
 
 import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
+import { RevealOnView } from "@/app/components/shared/RevealOnView";
 import { Companiesdata } from "@/lib/data/pageData";
 
 function LogoCells({ suffix }: { suffix: string }) {
@@ -28,7 +29,7 @@ function LogoCells({ suffix }: { suffix: string }) {
 const Companies = () => {
   return (
     <section className="border-none -my-2 pt-0 overflow-x-hidden">
-      <div className="container min-w-0">
+      <RevealOnView className="container min-w-0">
         <div
           className="relative min-h-[101px] overflow-hidden py-2"
           aria-label="Partner logos"
@@ -42,7 +43,7 @@ const Companies = () => {
             </div>
           </div>
         </div>
-      </div>
+      </RevealOnView>
     </section>
   );
 };

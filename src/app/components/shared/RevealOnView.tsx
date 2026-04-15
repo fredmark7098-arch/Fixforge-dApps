@@ -8,6 +8,7 @@ type RevealOnViewProps = {
   className?: string;
 };
 
+/** Scroll-triggered section entrance — used across landing + home blocks. */
 export function RevealOnView({ children, className }: RevealOnViewProps) {
   const reduceMotion = useReducedMotion();
 
@@ -18,10 +19,17 @@ export function RevealOnView({ children, className }: RevealOnViewProps) {
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-72px 0px" }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{
+        once: true,
+        amount: 0.12,
+        margin: "0px 0px -48px 0px",
+      }}
+      transition={{
+        duration: 0.68,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       {children}
     </motion.div>

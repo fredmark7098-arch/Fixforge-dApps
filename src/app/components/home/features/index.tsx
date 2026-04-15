@@ -1,5 +1,6 @@
 "use client";
 import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
+import { RevealOnView } from "@/app/components/shared/RevealOnView";
 import { Featuresdata } from "@/lib/data/pageData";
 
 const Features = () => {
@@ -7,7 +8,7 @@ const Features = () => {
     <section id="features-section" className="scroll-mt-20">
       <div className="container relative">
         <div className="bg-linear-to-r from-primary to-secondary absolute w-full h-full top-0 -left-1/4 blur-[64px] sm:blur-[120px] lg:blur-[390px]"></div>
-        <div className=" gap-x-4 gap-y-4 relative z-10">
+        <RevealOnView className="gap-x-4 gap-y-4 relative z-10">
           {/* Column-1 */}
           <div className="mb-10">
             <p className="text-primary text-base sm:text-lg font-semibold mb-4 text-center">
@@ -50,7 +51,7 @@ const Features = () => {
               ))}
             </div>
           </div>
-        </div>
+        </RevealOnView>
       </div>
     </section>
   );

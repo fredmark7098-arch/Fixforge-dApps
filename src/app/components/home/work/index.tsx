@@ -1,5 +1,6 @@
 "use client";
 import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
+import { RevealOnView } from "@/app/components/shared/RevealOnView";
 import { workdata } from "@/lib/data/pageData";
 import { getImagePath } from "@/lib/utils/imagePath";
 
@@ -7,7 +8,7 @@ const Work = () => {
   return (
     <section className="relative ">
       <div className="bg-banner-image absolute w-full h-full right-auto blur-[64px] sm:blur-[120px] lg:blur-[390px]" />
-      <div className="container">
+      <RevealOnView className="container">
         <div className="text-center mb-14">
           <h2 className="mb-3 capitalize">How It Works</h2>
           <p className="text-lightpurple max-w-2xl mx-auto md:text-lg font-normal md:leading-8 capitalize">
@@ -49,7 +50,7 @@ const Work = () => {
             </div>
           ))}
         </div>
-      </div>
+      </RevealOnView>
     </section>
   );
 };

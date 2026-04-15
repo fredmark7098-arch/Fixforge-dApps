@@ -1,6 +1,7 @@
 "use client";
 
 import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
+import { RevealOnView } from "@/app/components/shared/RevealOnView";
 import { getImagePath } from "@/lib/utils/imagePath";
 
 const Trade = () => {
@@ -8,7 +9,7 @@ const Trade = () => {
     <section className="overflow-hidden">
       <div className="container relative">
         <div className="bg-linear-to-r from-primary to-secondary hidden lg:block absolute w-full h-full top-1/2  blur-390"></div>
-        <div className="grid lg:grid-cols-2 gap-x-5 gap-y-8 items-center relative z-10">
+        <RevealOnView className="grid lg:grid-cols-2 gap-x-5 gap-y-8 items-center relative z-10">
           <div className="min-w-0 w-full">
             <ConnectWalletImage
               src={getImagePath("/images/trade/macbook.png")}
@@ -68,7 +69,7 @@ const Trade = () => {
               />
             </div>
           </div>
-        </div>
+        </RevealOnView>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { RevealOnView } from "@/app/components/shared/RevealOnView";
 import { submitWeb3Forms } from "@/lib/web3formsConfig";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -72,7 +73,7 @@ const ContactForm = () => {
 
   return (
     <section id="contact" className="scroll-mt-14">
-      <div className="container">
+      <RevealOnView className="container">
         <div className="relative">
           <h2 className="mb-9  capitalize">Get in Touch</h2>
           <div className="relative border border-lightblue/35 px-6 py-2 rounded-2xl">
@@ -196,7 +197,7 @@ const ContactForm = () => {
             </div>
           )}
         </div>
-      </div>
+      </RevealOnView>
     </section>
   );
 };
