@@ -73,30 +73,13 @@ type ShowcaseProps = {
   body: ReactNode;
   imageSrc: string;
   imageAlt: string;
-  topCta?: { label: string; href: string };
-  bottomCta?: { label: string; href: string };
 };
 
-function Showcase({
-  id,
-  title,
-  body,
-  imageSrc,
-  imageAlt,
-  topCta,
-  bottomCta,
-}: ShowcaseProps) {
+function Showcase({ id, title, body, imageSrc, imageAlt }: ShowcaseProps) {
   return (
     <section id={id} className={sectionShell + " scroll-mt-24"}>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(168,85,247,0.07),transparent_55%)]" />
       <div className="container relative z-10">
-        {topCta ? (
-          <div className="mb-10 flex justify-center">
-            <Link href={topCta.href} className={ctaPrimary}>
-              {topCta.label}
-            </Link>
-          </div>
-        ) : null}
         <h2 className="mb-6 text-center text-3xl font-bold text-white drop-shadow-[0_0_18px_rgba(255,255,255,0.06)] md:text-4xl lg:text-5xl">
           {title}
         </h2>
@@ -113,13 +96,6 @@ function Showcase({
             sizes="(max-width: 1024px) 100vw, 80vw"
           />
         </div>
-        {bottomCta ? (
-          <div className="mt-10 flex justify-center">
-            <Link href={bottomCta.href} className={ctaPrimary}>
-              {bottomCta.label}
-            </Link>
-          </div>
-        ) : null}
       </div>
     </section>
   );
@@ -143,7 +119,6 @@ const FAQ_ITEMS = [
 export default function MaxirchainLandingSections() {
   return (
     <>
-      {/* Resolve Issues + chain ticker (matches flow after trusted / logos on reference) */}
       <section className="relative border-t border-white/[0.06] bg-[#070504] py-12 md:py-16">
         <div className="container relative z-10">
           <div className="mb-10 flex justify-center">
@@ -168,7 +143,6 @@ export default function MaxirchainLandingSections() {
         }
         imageSrc="/images/assets/wallet-troubleshooter.jpg"
         imageAlt="Wallet diagnostics and network illustration"
-        bottomCta={{ label: "Get Started", href: "/#contact" }}
       />
 
       <Showcase
@@ -183,8 +157,6 @@ export default function MaxirchainLandingSections() {
         }
         imageSrc="/images/assets/control-crypto.jpg"
         imageAlt="Digital control and security across chains"
-        topCta={{ label: "Get Started", href: "/#contact" }}
-        bottomCta={{ label: "Get Started", href: "/#contact" }}
       />
 
       <Showcase
@@ -199,7 +171,6 @@ export default function MaxirchainLandingSections() {
         }
         imageSrc="/images/assets/troubleshooting-expertise.jpg"
         imageAlt="Cross-chain troubleshooting and workflows"
-        bottomCta={{ label: "Get Started", href: "/#contact" }}
       />
 
       <Showcase
@@ -216,18 +187,11 @@ export default function MaxirchainLandingSections() {
         }
         imageSrc="/images/assets/nft-services.jpg"
         imageAlt="NFT troubleshooting services"
-        bottomCta={{ label: "Get Started", href: "/#contact" }}
       />
 
-      {/* Why Choose … for NFTs + feature strip */}
       <section className={sectionShell + " scroll-mt-24"}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_50%_20%,rgba(251,146,60,0.08),transparent_60%)]" />
         <div className="container relative z-10">
-          <div className="mb-10 flex justify-center">
-            <Link href="/#contact" className={ctaPrimary}>
-              Get Started
-            </Link>
-          </div>
           <h2 className="mb-6 text-center text-3xl font-bold text-white md:text-4xl lg:text-5xl">
             Why Choose Fixforge-dApps for NFTs?
           </h2>
@@ -393,14 +357,10 @@ export default function MaxirchainLandingSections() {
           <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl">
             Contact Us
           </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            Need help right now? Connect and we&apos;ll guide you step-by-step
-            with clear, safe actions. Most issues resolve within minutes once the
-            root cause is identified.
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+            Need help right now? Use the form below or reach out—we&apos;ll guide
+            you step-by-step with clear, safe actions once you&apos;re connected.
           </p>
-          <Link href="/#contact" className={ctaPrimary}>
-            Get Started
-          </Link>
         </div>
       </section>
     </>

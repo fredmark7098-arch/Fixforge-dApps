@@ -1,3 +1,6 @@
+"use client";
+
+import { useWalletConnect } from "@/app/contexts/WalletConnectContext";
 import { getImagePath } from "@/lib/utils/imagePath";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +14,12 @@ const gridStyle = {
   backgroundSize: "56px 56px",
 } as const;
 
+const ctaClass =
+  "inline-flex rounded-xl bg-gradient-to-r from-amber-600 via-orange-700 to-amber-900 px-10 py-4 text-lg font-semibold text-white shadow-[0_0_24px_rgba(245,158,11,0.4),0_4px_24px_rgba(120,53,15,0.35)] transition hover:shadow-[0_0_36px_rgba(245,158,11,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400";
+
 const Banner = () => {
+  const { openWalletConnect } = useWalletConnect();
+
   return (
     <section className="relative overflow-hidden pb-0" id="home-section">
       <div className="relative min-h-[100svh]">
@@ -68,12 +76,13 @@ const Banner = () => {
           </p>
 
           <div className="hero-enter hero-enter-delay-3">
-            <Link
-              href="/#contact"
-              className="inline-flex rounded-xl bg-gradient-to-r from-amber-600 via-orange-700 to-amber-900 px-10 py-4 text-lg font-semibold text-white shadow-[0_0_24px_rgba(245,158,11,0.4),0_4px_24px_rgba(120,53,15,0.35)] transition hover:shadow-[0_0_36px_rgba(245,158,11,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+            <button
+              type="button"
+              onClick={() => openWalletConnect()}
+              className={ctaClass}
             >
               Get Started
-            </Link>
+            </button>
           </div>
         </div>
 
