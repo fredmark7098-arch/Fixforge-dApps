@@ -49,7 +49,7 @@ export function HeroAuroraParagraph() {
         <motion.span
           key={`${word}-${i}`}
           variants={wordVariants}
-          className="hero-aurora-word"
+          className="hero-wave-word"
           style={{ "--word-i": i } as CSSProperties}
         >
           {word}
