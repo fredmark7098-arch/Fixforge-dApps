@@ -3,11 +3,13 @@
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
 /* Static export only when running `next build`, not during `next dev`, so dev uses the normal
-   server and avoids ENOENT vendor-chunks / stale chunk maps under .next. */
+   server and avoids ENOENT vendor-chunks / stale chunk maps under .next.
+   On Vercel (`VERCEL=1`), skip static export so the platform gets a normal `.next` build. */
 const isBuild = process.argv.includes('build')
+const isVercel = process.env.VERCEL === '1'
 
 const nextConfig = {
-  ...(isBuild ? { output: 'export' } : {}),
+  ...(isBuild && !isVercel ? { output: 'export' } : {}),
   trailingSlash: true,
   basePath: basePath,
   assetPrefix: basePath,
