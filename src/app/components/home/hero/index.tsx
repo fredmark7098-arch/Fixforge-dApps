@@ -1,101 +1,103 @@
-"use client";
-import { useWalletConnect } from "@/app/contexts/WalletConnectContext";
 import { getImagePath } from "@/lib/utils/imagePath";
-import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
+import { BinaryColumns } from "./BinaryColumns";
+
+const gridStyle = {
+  backgroundImage: `
+    linear-gradient(rgba(251, 191, 36, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 191, 36, 0.04) 1px, transparent 1px)
+  `,
+  backgroundSize: "56px 56px",
+} as const;
 
 const Banner = () => {
-  const { openWalletConnect } = useWalletConnect();
-  const [isOpen, setOpen] = useState(false);
-
-  const openModal = () => {
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-  };
-
   return (
-    <section className="relative pb-0" id="home-section">
-      <div className="bg-banner-image absolute w-full h-full top-0 blur-[64px] sm:blur-[120px] lg:blur-[390px]"></div>
-      <div className="overflow-hidden">
-        <div className="container lg:pt-20 pt-10 relative">
-          <div className="relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 my-16 items-center">
-              <div className="lg:col-span-7 mb-16">
-                <h1 className="mb-5 lg:text-start text-center sm:leading-snug leading-tight capitalize">
-                  Participate in open, <br /> decentralized networks
-                </h1>
-                <p className="text-white font-normal mb-10 max-w-[70%] lg:text-start text-center lg:mx-0 mx-auto capitalize">
-                  Explore how distributed nodes, transparent protocols, and
-                  cryptographic verification replace single-company control
-                  connect your wallet and interact with the chain directly.
-                </p>
-                <div className="flex align-middle justify-center lg:justify-start">
-                  <button
-                    type="button"
-                    onClick={() => openWalletConnect()}
-                    className="text-xl font-semibold text-white py-4 px-6 lg:px-12 bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary rounded-xl mr-6 cursor-pointer"
-                  >
-                    Connect Wallet
-                  </button>
-                  <button
-                    onClick={openModal}
-                    className="bg-transparent flex justify-center items-center text-white cursor-pointer"
-                  >
-                    <Image
-                      src={getImagePath("/images/banner/playbutton.svg")}
-                      alt="button-image"
-                      className="mr-3"
-                      width={47}
-                      height={47}
-                    />
-                    <span className="hover:text-primary">How it works</span>
-                  </button>
-                </div>
-              </div>
-              <div className="lg:col-span-5 lg:-m-48 -m-20 overflow-hidden">
-                <Image
-                  src={getImagePath("/images/banner/banner.png")}
-                  alt=""
-                  width={1013}
-                  height={760}
-                  priority
-                  sizes="(max-width: 1023px) 100vw, 45vw"
-                  className="h-auto w-full max-w-full"
-                />
-              </div>
-            </div>
+    <section className="relative overflow-hidden pb-0" id="home-section">
+      <div className="relative min-h-[100svh]">
+        {/* Background stack */}
+        <div className="absolute inset-0 z-0 min-h-[100svh] bg-[#070504]">
+          <div
+            className="absolute inset-0 opacity-[0.85]"
+            style={gridStyle}
+            aria-hidden
+          />
+          <div
+            className="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_50%_18%,rgba(251,191,36,0.12),transparent_55%),radial-gradient(ellipse_60%_50%_at_80%_30%,rgba(168,85,247,0.08),transparent_50%),radial-gradient(ellipse_100%_80%_at_50%_100%,rgba(0,0,0,0.85),transparent_65%)]"
+            aria-hidden
+          />
+          <div className="absolute inset-0 z-0 min-h-[100svh]">
+            <BinaryColumns />
+          </div>
+          <div
+            className="pointer-events-none absolute -right-16 top-[12%] hidden h-[min(55vh,480px)] w-[min(42vw,320px)] rounded-[45%] border border-amber-400/15 lg:block"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_45%,transparent_0%,rgba(7,5,4,0.5)_75%,#070504_100%)]"
+            aria-hidden
+          />
+        </div>
+
+        {/* Main hero */}
+        <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4 pb-16 pt-28 text-center sm:pt-32 md:pt-36">
+          <div className="hero-enter mb-8 drop-shadow-[0_0_32px_rgba(168,85,247,0.45)]">
+            <Image
+              src={getImagePath("/images/assets/1.jpg")}
+              alt=""
+              width={120}
+              height={120}
+              priority
+              className="mx-auto h-24 w-24 rounded-2xl object-cover sm:h-28 sm:w-28 md:h-32 md:w-32"
+            />
+          </div>
+
+          <h1 className="hero-enter hero-enter-delay-1 mb-6 max-w-4xl bg-gradient-to-b from-amber-100 via-yellow-50 to-white/90 bg-clip-text text-3xl font-bold leading-[1.15] text-transparent drop-shadow-[0_0_28px_rgba(251,191,36,0.2)] sm:text-4xl md:text-5xl lg:text-6xl">
+            Fixforge-dApps — All Chains Resolver
+          </h1>
+
+          <p className="hero-enter hero-enter-delay-2 mb-10 max-w-2xl text-base font-normal leading-relaxed text-white/85 sm:text-lg md:text-xl">
+            Fixforge-dApps is a protocol for autonomous, cross-chain remediation
+            — engineered to fix what slows you down and safeguard what moves you
+            forward.{" "}
+            <span className="font-medium text-lime-400 drop-shadow-[0_0_12px_rgba(163,230,53,0.35)]">
+              Experience instant migration recovery
+            </span>{" "}
+            across the wallets and networks you already use — continuously,
+            securely, and on your terms.
+          </p>
+
+          <div className="hero-enter hero-enter-delay-3">
+            <Link
+              href="/#contact"
+              className="inline-flex rounded-xl bg-gradient-to-r from-amber-600 via-orange-700 to-amber-900 px-10 py-4 text-lg font-semibold text-white shadow-[0_0_24px_rgba(245,158,11,0.4),0_4px_24px_rgba(120,53,15,0.35)] transition hover:shadow-[0_0_36px_rgba(245,158,11,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+            >
+              Get Started
+            </Link>
+          </div>
+        </div>
+
+        <div className="relative z-10 border-t border-white/[0.06] bg-[#070504]/80 px-4 pb-20 pt-14 backdrop-blur-[2px]">
+          <div className="container mx-auto max-w-3xl text-center">
+            <h2 className="hero-enter hero-enter-delay-4 mb-5 text-2xl font-bold text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.08)] sm:text-3xl md:text-4xl">
+              Trusted by Thousands Worldwide
+            </h2>
+            <p className="mb-8 text-base leading-relaxed text-white/70 sm:text-lg">
+              Secure, reliable, and designed for real-world multi-chain support
+              with modern protections, best-practice flows, and continuous
+              improvements. Fixforge-dApps scales from individual wallets to
+              institutional teams, helping you diagnose issues faster and execute
+              remediations confidently.
+            </p>
+            <Link
+              href="/#services-section"
+              className="inline-flex rounded-xl bg-gradient-to-r from-amber-600 via-orange-700 to-amber-900 px-8 py-3.5 text-base font-semibold text-white shadow-[0_0_20px_rgba(245,158,11,0.35)] transition hover:shadow-[0_0_32px_rgba(245,158,11,0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
+            >
+              Resolve Issues
+            </Link>
           </div>
         </div>
       </div>
-      {isOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-gradient-to-br from-primary to-secondary rounded-lg sm:m-0 m-4">
-            <div className="overlay flex items-center justify-between border-b border-solid border-border p-5 z-50 backdrop-blur-sm">
-              <h3 className="text-white">How It Works</h3>
-              <button onClick={closeModal} className="inline-block dark:invert">
-                <Icon
-                  icon="tabler:circle-x"
-                  className="text-2xl text-white hover:cursor-pointer hover:text-primary"
-                />
-              </button>
-            </div>
-            <iframe
-              height="400"
-              className="p-4 md:w-[50rem] w-full"
-              src="https://www.youtube.com/embed/2tTVJL4bpTU"
-              title="How Our Product Works"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

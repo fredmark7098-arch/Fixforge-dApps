@@ -15,7 +15,7 @@ const Footer = () => {
             <img
               className="block h-12 w-20px mb-4"
               src={getImagePath("/images/logo/logo.svg")}
-              alt="CoreumX-Logo"
+              alt="Fixforge-dApps"
             />
             <p className="text-white/60 text-sm font-normal max-w-96 leading-7 mb-7">
               We highlight how decentralized systems spread trust across many
@@ -95,15 +95,7 @@ const Footer = () => {
       </div>
       <div className="py-8 px-4 border-t border-t-lightblue">
         <p className="text-center text-white">
-          @2025 - All Rights Reserved by{" "}
-          <Link
-            href="#"
-            target="_blank"
-            className="hover:text-primary"
-          >
-            {" "}
-            CoreumX.com
-          </Link>
+          © 2026 Fixforge-dApps. All rights reserved.
         </p>
       </div>
     </footer>

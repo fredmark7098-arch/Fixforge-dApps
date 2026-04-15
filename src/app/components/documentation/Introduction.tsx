@@ -85,7 +85,7 @@ export const Introduction = () => {
         </div>
         <div className="mt-5">
           <p className="text-base font-medium text-white/60 text-opacity-60">
-          CoreumX Tailwind NextJs Template is built with Tailwindcss and
+          Fixforge-dApps is built with Tailwindcss and
             Nextjs.
           </p>
           <p className="text-base font-medium text-white/60 text-opacity-60">

@@ -1,7 +1,7 @@
 import { Documentation } from "@/app/components/documentation/Documentation";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-    title: "Featurs | SiEducational",
+    title: "Features",
 };
 
 export default function Page() {

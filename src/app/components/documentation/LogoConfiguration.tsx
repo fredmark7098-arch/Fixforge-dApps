@@ -15,8 +15,8 @@ export const LogoConfiguration = () => {
             <p>&#x3C;Link href=&#x22;/&#x22;&#x3E;</p>
             <p>&#x3C;Image</p>
             <p>src=&#x22;/images/logo/logo.svg&#x22;</p>
-            <p>alt=&#x22;logo&#x22;</p>
-            <p>width={160}</p>
+            <p>alt=&#x22;Fixforge-dApps&#x22;</p>
+            <p>width={220}</p>
             <p>height={50}</p>
             <p>quality={100}</p>
             <p>

@@ -6,11 +6,11 @@ import Link from "next/link";
 
 const Logo: React.FC = () => {
   return (
-    <Link href="/">
+    <Link href="/" className="flex items-center" aria-label="Fixforge-dApps home">
       <Image
         src={getImagePath("/images/logo/logo.svg")}
-        alt="logo"
-        width={160}
+        alt="Fixforge-dApps"
+        width={220}
         height={50}
         style={{ width: "auto", height: "auto" }}
         quality={100}

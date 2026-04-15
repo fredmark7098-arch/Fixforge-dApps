@@ -11,7 +11,7 @@ import Faq from "./components/home/faq";
 import ContactForm from "./components/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Open decentralized networks",
+  title: { absolute: "Fixforge-dApps" },
 };
 
 export default function Home() {
@@ -19,6 +19,7 @@ export default function Home() {
     <main className="min-w-0 pt-20 sm:pt-24 lg:pt-24">
       <Banner/>
       <Companies />
+
       <Services />
       <Work />
       <Table />
@@ -27,7 +28,6 @@ export default function Home() {
       <Trade />
       <Faq />
       <ContactForm />
-      
     </main>
   );
 }

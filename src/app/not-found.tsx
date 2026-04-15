@@ -4,7 +4,7 @@ import HeroSub from "./components/shared/hero-sub";
 import NotFound from "./components/not-found";
 
 export const metadata: Metadata = {
-  title: "404 Page | Venus ",
+  title: "404 Page",
 };
 
 const ErrorPage = () => {

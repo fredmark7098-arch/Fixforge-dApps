@@ -8,23 +8,21 @@ import Header from './components/layout/header'
 import Footer from './components/layout/footer'
 import ToasterContext from './api/contex/ToasetContex'
 import { WalletConnectProvider } from './contexts/WalletConnectContext'
+import ClientMountGate from './components/ClientMountGate'
 import GlobalUnhandledRejectionGuard from './components/GlobalUnhandledRejectionGuard'
-import IconifyBoot from './components/IconifyBoot'
 
-const font = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  adjustFontFallback: true,
-})
+const font = Inter({ subsets: ['latin'] })
 
 
-/** Static files in /public — avoids a webpack-split app/favicon route that breaks dev when .next is stale. */
+/** Static file in /public — avoids a webpack-split app/favicon route that breaks dev when .next is stale. */
 export const metadata: Metadata = {
+  applicationName: 'Fixforge-dApps',
+  title: {
+    default: 'Fixforge-dApps',
+    template: '%s | Fixforge-dApps',
+  },
   icons: {
-    icon: [
-      { url: `${SITE_BASE_PATH}/favicon.svg`, type: 'image/svg+xml' },
-      { url: `${SITE_BASE_PATH}/favicon.ico`, sizes: 'any' },
-    ],
+    icon: [{ url: `${SITE_BASE_PATH}/favicon.ico`, sizes: 'any' }],
   },
 }
 
@@ -41,21 +39,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://api.iconify.design" crossOrigin="anonymous" />
-      </head>
       <body className={`${font.className}`} suppressHydrationWarning>
         <GlobalUnhandledRejectionGuard />
-        <IconifyBoot />
-        <WalletConnectProvider>
-          <ToasterContext />
-          <Aoscompo>
-            <Header />
-            {children}
-            <Footer />
-          </Aoscompo>
-          <ScrollToTop />
-        </WalletConnectProvider>
+        <ClientMountGate
+          fallback={
+            <div
+              className="min-h-screen bg-body-bg"
+              suppressHydrationWarning
+              aria-busy="true"
+            />
+          }
+        >
+          <WalletConnectProvider>
+            <ToasterContext />
+            <Aoscompo>
+              <Header />
+              {children}
+              <Footer />
+            </Aoscompo>
+            <ScrollToTop />
+          </WalletConnectProvider>
+        </ClientMountGate>
       </body>
     </html>
   )

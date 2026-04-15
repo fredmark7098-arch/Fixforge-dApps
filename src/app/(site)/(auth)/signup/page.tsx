@@ -4,8 +4,7 @@ import Breadcrumb from "@/app/components/shared/Breadcrumb";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title:
-    "Sign Up | Property",
+  title: "Sign Up",
 };
 
 const SignupPage = () => {
