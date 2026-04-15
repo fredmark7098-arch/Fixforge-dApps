@@ -3,7 +3,6 @@
 import { useWalletConnect } from "@/app/contexts/WalletConnectContext";
 import { getImagePath } from "@/lib/utils/imagePath";
 import Image from "next/image";
-import Link from "next/link";
 import { BinaryColumns } from "./BinaryColumns";
 
 const gridStyle = {
@@ -15,7 +14,7 @@ const gridStyle = {
 } as const;
 
 const ctaClass =
-  "inline-flex rounded-xl bg-gradient-to-r from-amber-600 via-orange-700 to-amber-900 px-10 py-4 text-lg font-semibold text-white shadow-[0_0_24px_rgba(245,158,11,0.4),0_4px_24px_rgba(120,53,15,0.35)] transition hover:shadow-[0_0_36px_rgba(245,158,11,0.55)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400";
+  "inline-flex rounded-lg bg-gradient-to-r from-amber-600 via-orange-700 to-amber-900 px-7 py-2.5 text-sm font-semibold text-white shadow-[0_0_18px_rgba(245,158,11,0.35)] transition hover:shadow-[0_0_26px_rgba(245,158,11,0.48)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400 sm:px-8 sm:text-base";
 
 const Banner = () => {
   const { openWalletConnect } = useWalletConnect();
@@ -91,19 +90,13 @@ const Banner = () => {
             <h2 className="hero-enter hero-enter-delay-4 mb-5 text-2xl font-bold text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.08)] sm:text-3xl md:text-4xl">
               Trusted by Thousands Worldwide
             </h2>
-            <p className="mb-8 text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="text-base leading-relaxed text-white/70 sm:text-lg">
               Secure, reliable, and designed for real-world multi-chain support
               with modern protections, best-practice flows, and continuous
               improvements. Fixforge-dApps scales from individual wallets to
               institutional teams, helping you diagnose issues faster and execute
               remediations confidently.
             </p>
-            <Link
-              href="/#services-section"
-              className="inline-flex rounded-xl bg-gradient-to-r from-amber-600 via-orange-700 to-amber-900 px-8 py-3.5 text-base font-semibold text-white shadow-[0_0_20px_rgba(245,158,11,0.35)] transition hover:shadow-[0_0_32px_rgba(245,158,11,0.5)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400"
-            >
-              Resolve Issues
-            </Link>
           </div>
         </div>
       </div>

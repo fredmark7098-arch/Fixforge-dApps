@@ -3,7 +3,6 @@
 import { getImagePath } from "@/lib/utils/imagePath";
 import { Icon } from "@iconify/react";
 import Image from "next/image";
-import Link from "next/link";
 import type { ReactNode } from "react";
 
 /** Encode spaces for static filenames under /public. */
@@ -11,9 +10,6 @@ function assetPath(path: string): string {
   const normalized = path.startsWith("/") ? path : `/${path}`;
   return getImagePath(normalized.replace(/ /g, "%20"));
 }
-
-const ctaPrimary =
-  "inline-flex rounded-xl bg-gradient-to-r from-amber-600 via-orange-700 to-amber-900 px-8 py-3.5 text-base font-semibold text-white shadow-[0_0_22px_rgba(245,158,11,0.38)] transition hover:shadow-[0_0_32px_rgba(245,158,11,0.52)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400";
 
 const sectionShell =
   "relative overflow-hidden border-t border-white/[0.06] bg-[#070504] py-16 md:py-24";
@@ -119,13 +115,8 @@ const FAQ_ITEMS = [
 export default function MaxirchainLandingSections() {
   return (
     <>
-      <section className="relative border-t border-white/[0.06] bg-[#070504] py-12 md:py-16">
+      <section className="relative border-t border-white/[0.06] bg-[#070504] py-10 md:py-14">
         <div className="container relative z-10">
-          <div className="mb-10 flex justify-center">
-            <Link href="/#wallet-troubleshooter" className={ctaPrimary}>
-              Resolve Issues
-            </Link>
-          </div>
           <ChainTicker />
         </div>
       </section>
