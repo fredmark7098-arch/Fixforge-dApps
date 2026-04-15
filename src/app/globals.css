@@ -87,6 +87,23 @@
   h2 {
     @apply text-white sm:text-5xl text-4xl font-bold tracking-tight;
   }
+
+  a {
+    transition-property: color, opacity, border-color, background-color;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  button {
+    transition-property: transform, opacity, box-shadow, background-color,
+      border-color;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  button:active:not(:disabled) {
+    transform: scale(0.98);
+  }
 }
 
 @layer utilities {
@@ -189,6 +206,64 @@
       opacity: 1;
       transform: none;
     }
+
+    .hero-aurora-word {
+      animation: none !important;
+      background: none !important;
+      color: rgba(255, 255, 255, 0.88) !important;
+      -webkit-text-fill-color: rgba(255, 255, 255, 0.88) !important;
+    }
+  }
+
+  /* Aurora + gentle bounce wave (hero story text) */
+  @keyframes hero-aurora-flow {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
+  }
+
+  @keyframes hero-word-bounce {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    35% {
+      transform: translate3d(0, -5px, 0);
+    }
+    55% {
+      transform: translate3d(0, -2px, 0);
+    }
+  }
+
+  .hero-aurora-word {
+    display: inline-block;
+    margin: 0 0.02em;
+    background-image: linear-gradient(
+      105deg,
+      #fde68a,
+      #fbbf24,
+      #fb923c,
+      #f97316,
+      #f472b6,
+      #34d399,
+      #22d3ee,
+      #fde68a
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation-name: hero-aurora-flow, hero-word-bounce;
+    animation-duration: 10s, 3.2s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    animation-delay: calc(var(--word-i, 0) * 0.055s),
+      calc(var(--word-i, 0) * 0.09s);
+    filter: drop-shadow(0 0 14px rgba(251, 191, 36, 0.22));
   }
 }
 

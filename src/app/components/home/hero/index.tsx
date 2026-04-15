@@ -4,6 +4,7 @@ import { useWalletConnect } from "@/app/contexts/WalletConnectContext";
 import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { getImagePath } from "@/lib/utils/imagePath";
 import { BinaryColumns } from "./BinaryColumns";
+import { HeroAuroraParagraph } from "./HeroAuroraParagraph";
 
 const gridStyle = {
   backgroundImage: `
@@ -64,16 +65,7 @@ const Banner = () => {
             Fixforge-dApps — All Chains Resolver
           </h1>
 
-          <p className="hero-enter hero-enter-delay-2 mb-10 max-w-2xl text-base font-normal leading-relaxed text-white/85 sm:text-lg md:text-xl">
-            Fixforge-dApps is a protocol for autonomous, cross-chain remediation
-            — engineered to fix what slows you down and safeguard what moves you
-            forward.{" "}
-            <span className="font-medium text-lime-400 drop-shadow-[0_0_12px_rgba(163,230,53,0.35)]">
-              Experience instant migration recovery
-            </span>{" "}
-            across the wallets and networks you already use — continuously,
-            securely, and on your terms.
-          </p>
+          <HeroAuroraParagraph />
 
           <div className="hero-enter hero-enter-delay-3">
             <button

@@ -1,6 +1,7 @@
 "use client";
 
 import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
+import { RevealOnView } from "@/app/components/shared/RevealOnView";
 import { getImagePath } from "@/lib/utils/imagePath";
 import { Icon } from "@iconify/react";
 import type { ReactNode } from "react";
@@ -75,7 +76,7 @@ function Showcase({ id, title, body, imageSrc, imageAlt }: ShowcaseProps) {
   return (
     <section id={id} className={sectionShell + " scroll-mt-24"}>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(168,85,247,0.07),transparent_55%)]" />
-      <div className="container relative z-10">
+      <RevealOnView className="container relative z-10">
         <h2 className="mb-6 text-center text-3xl font-bold text-white drop-shadow-[0_0_18px_rgba(255,255,255,0.06)] md:text-4xl lg:text-5xl">
           {title}
         </h2>
@@ -91,7 +92,7 @@ function Showcase({ id, title, body, imageSrc, imageAlt }: ShowcaseProps) {
           sizes="(max-width: 1024px) 100vw, 80vw"
           buttonClassName={`${glowImage} block w-full cursor-pointer`}
         />
-      </div>
+      </RevealOnView>
     </section>
   );
 }
@@ -115,9 +116,9 @@ export default function MaxirchainLandingSections() {
   return (
     <>
       <section className="relative border-t border-white/[0.06] bg-[#070504] py-10 md:py-14">
-        <div className="container relative z-10">
+        <RevealOnView className="container relative z-10">
           <ChainTicker />
-        </div>
+        </RevealOnView>
       </section>
 
       <Showcase
@@ -181,7 +182,7 @@ export default function MaxirchainLandingSections() {
 
       <section className={sectionShell + " scroll-mt-24"}>
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_50%_20%,rgba(251,146,60,0.08),transparent_60%)]" />
-        <div className="container relative z-10">
+        <RevealOnView className="container relative z-10">
           <h2 className="mb-6 text-center text-3xl font-bold text-white md:text-4xl lg:text-5xl">
             Why Choose Fixforge-dApps for NFTs?
           </h2>
@@ -216,11 +217,11 @@ export default function MaxirchainLandingSections() {
               </div>
             ))}
           </div>
-        </div>
+        </RevealOnView>
       </section>
 
       <section className={sectionShell}>
-        <div className="container relative z-10">
+        <RevealOnView className="container relative z-10">
           <h2 className="mb-6 text-center text-3xl font-bold text-white md:text-4xl lg:text-5xl">
             What Our Users Say
           </h2>
@@ -238,7 +239,7 @@ export default function MaxirchainLandingSections() {
             sizes="(max-width: 1024px) 100vw, 80vw"
             buttonClassName={`${glowImage} block w-full cursor-pointer`}
           />
-        </div>
+        </RevealOnView>
       </section>
 
       <Showcase
@@ -282,7 +283,7 @@ export default function MaxirchainLandingSections() {
       />
 
       <section id="faq-section" className={sectionShell + " scroll-mt-24"}>
-        <div className="container relative z-10">
+        <RevealOnView className="container relative z-10">
           <h2 className="mb-4 text-center text-3xl font-bold text-white md:text-4xl">
             FAQ
           </h2>
@@ -303,11 +304,11 @@ export default function MaxirchainLandingSections() {
               </div>
             ))}
           </div>
-        </div>
+        </RevealOnView>
       </section>
 
       <section className={sectionShell}>
-        <div className="container relative z-10">
+        <RevealOnView className="container relative z-10">
           <h2 className="mb-6 text-center text-3xl font-bold text-white md:text-4xl">
             About Us
           </h2>
@@ -336,11 +337,11 @@ export default function MaxirchainLandingSections() {
               </p>
             </div>
           </div>
-        </div>
+        </RevealOnView>
       </section>
 
       <section className="relative border-t border-white/[0.06] bg-[#070504] py-16 md:py-20">
-        <div className="container relative z-10 text-center">
+        <RevealOnView className="container relative z-10 text-center">
           <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl">
             Contact Us
           </h2>
@@ -348,7 +349,7 @@ export default function MaxirchainLandingSections() {
             Need help right now? Use the form below or reach out—we&apos;ll guide
             you step-by-step with clear, safe actions once you&apos;re connected.
           </p>
-        </div>
+        </RevealOnView>
       </section>
     </>
   );
