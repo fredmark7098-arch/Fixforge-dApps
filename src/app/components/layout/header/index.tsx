@@ -59,7 +59,7 @@ const Header: React.FC = () => {
         navbarOpen ? "z-[70]" : "z-40"
       } ${
         sticky
-          ? " shadow-lg bg-body-bg bg-banner-image py-3.5"
+          ? "border-b border-white/10 bg-body-bg/90 py-3.5 shadow-lg shadow-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-body-bg/75"
           : "shadow-none py-4 sm:py-5"
       }`}
     >
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
             <button
               type="button"
               onClick={connect}
-              className="hidden lg:block bg-linear-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white duration-300 px-6 py-3 rounded-lg"
+              className="hidden lg:block rounded-lg bg-linear-to-r from-amber-500 via-orange-600 to-amber-800 px-6 py-3 font-medium text-white shadow-[0_0_22px_rgba(245,158,11,0.38)] duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.5)]"
             >
               Connect Wallet
             </button>
@@ -103,7 +103,7 @@ const Header: React.FC = () => {
         )}
         <div
           ref={mobileMenuRef}
-          className={`lg:hidden fixed top-0 right-0 z-[55] h-full w-full max-w-xs transform bg-darkmode shadow-lg transition-transform duration-300 touch-manipulation ${
+          className={`lg:hidden fixed top-0 right-0 z-[55] h-full w-full max-w-xs transform border-l border-white/10 bg-darkmode shadow-2xl shadow-black/50 transition-transform duration-300 touch-manipulation ${
             navbarOpen
               ? "translate-x-0 pointer-events-auto"
               : "translate-x-full pointer-events-none"
@@ -148,7 +148,7 @@ const Header: React.FC = () => {
               <button
                 type="button"
                 onClick={connect}
-                className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-transparent border border-primary hover:text-primary"
+                className="rounded-lg border border-amber-500/50 bg-linear-to-r from-amber-600 to-orange-800 px-4 py-2 text-white shadow-[0_0_16px_rgba(245,158,11,0.25)] hover:border-amber-400/70 hover:opacity-95"
               >
                 Connect Wallet
               </button>

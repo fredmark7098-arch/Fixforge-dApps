@@ -3,20 +3,21 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --shadow-mentor-shadow: 0px 4px 20px rgba(110, 127, 185, 0.1);
+  /* Maxirechain-style: warm dark base, amber / orange accents, soft neutrals */
+  --shadow-mentor-shadow: 0px 4px 24px rgba(245, 158, 11, 0.12);
 
   --inset-54\%: 54%;
   --inset-40\%: 40%;
 
-  --color-primary: #bd24df;
-  --color-secondary: #2d6ade;
-  --color-body-bg: #040d26;
-  --color-darkmode: #0c1b44;
-  --color-tablebg: #132259;
-  --color-border: #091945;
-  --color-lightblue: #8a9bca;
-  --color-lightsky: #ecf2ff;
-  --color-lightpurple: #b4c7ed;
+  --color-primary: #f59e0b;
+  --color-secondary: #c2410c;
+  --color-body-bg: #070504;
+  --color-darkmode: #12100e;
+  --color-tablebg: #1a1512;
+  --color-border: #292420;
+  --color-lightblue: #a8a29e;
+  --color-lightsky: #fafaf9;
+  --color-lightpurple: #d6d3d1;
 
   /* Legacy tokens still referenced across components (Tailwind v3 config parity) */
   --color-midnight_text: #263238;
@@ -41,13 +42,13 @@
 
   --background-image-banner-image: linear-gradient(
     90deg,
-    #bd24df80,
-    #2d6ade80 97.15%
+    rgba(245, 158, 11, 0.35),
+    rgba(194, 65, 12, 0.28) 97.15%
   );
   --background-image-simple-bg: linear-gradient(
     90deg,
-    rgba(189, 36, 223, 0.1),
-    rgba(45, 106, 222, 0.1) 97.15%
+    rgba(245, 158, 11, 0.12),
+    rgba(194, 65, 12, 0.1) 97.15%
   );
   --background-image-arrow-bg: url('/images/simple/arrow-bg.png');
   --background-image-newsletter: url('/images/newsletter/hands.svg');
@@ -84,7 +85,7 @@
   }
 
   h2 {
-    @apply text-lightsky sm:text-5xl text-4xl font-bold;
+    @apply text-white sm:text-5xl text-4xl font-bold tracking-tight;
   }
 }
 
@@ -113,8 +114,13 @@
     animation: logos-marquee 40s linear infinite;
   }
 
+  .chain-marquee {
+    animation: logos-marquee 32s linear infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .logos-marquee {
+    .logos-marquee,
+    .chain-marquee {
       animation: none;
     }
   }
@@ -194,4 +200,14 @@ body {
   min-width: 0;
   overflow-x: hidden;
   background-color: var(--color-body-bg);
+  background-image: radial-gradient(
+      ellipse 120% 80% at 50% -20%,
+      rgba(245, 158, 11, 0.06),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 80% 50% at 100% 50%,
+      rgba(194, 65, 12, 0.04),
+      transparent 50%
+    );
 }

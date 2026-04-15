@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const NotFound = () => {
   return (
-    <section className="bg-white pt-8 pb-20">
+    <section className="bg-body-bg pt-8 pb-20">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap items-center">
           <div className="w-full px-4 md:w-5/12 lg:w-6/12">
@@ -52,16 +52,16 @@ const NotFound = () => {
                   />
                 </svg>
               </div>
-              <h3 className="mb-5 text-2xl font-semibold text-dark dark:text-white">
+              <h3 className="mb-5 text-2xl font-semibold text-white">
                 We Can&#39;t Seem to Find The Page You&#39;re Looking For.
               </h3>
-              <p className="mb-8 text-base text-body-color dark:text-dark-6">
+              <p className="mb-8 text-base text-white/65">
                 Oops! The page you are looking for does not exist. It might have
                 been moved or deleted.
               </p>
               <Link
                 href="/"
-                className="rounded-md px-7 py-3 text-base font-medium text-white transition hover:bg-blue-700 bg-primary"
+                className="rounded-lg bg-linear-to-r from-amber-600 to-orange-800 px-7 py-3 text-base font-medium text-white shadow-[0_0_18px_rgba(245,158,11,0.35)] transition hover:opacity-95"
               >
                 Go To Home
               </Link>

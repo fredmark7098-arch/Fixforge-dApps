@@ -36,7 +36,7 @@ export default function ScrollToTop() {
         <button
           type="button"
           onClick={() => openWalletConnect()}
-          className="hidden lg:block bg-primary text-white hover:bg-primary/15 hover:text-primary text-sm font-medium px-4 py-3.5 leading-none rounded-lg text-nowrap"
+          className="hidden lg:block rounded-lg bg-linear-to-r from-amber-600 to-orange-800 px-4 py-3.5 text-sm font-medium leading-none text-nowrap text-white shadow-[0_0_18px_rgba(245,158,11,0.35)] hover:opacity-95"
         >
           Connect Wallet
         </button>
@@ -44,7 +44,7 @@ export default function ScrollToTop() {
           <div
             onClick={scrollToTop}
             aria-label="scroll to top"
-            className="back-to-top flex h-10 w-10 cursor-pointer items-center justify-center rounded-md bg-[#102C46] text-white shadow-md transition duration-300 ease-in-out hover:bg-dark"
+            className="back-to-top flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border border-amber-500/30 bg-darkmode text-white shadow-md shadow-black/40 transition duration-300 ease-in-out hover:border-amber-500/50 hover:bg-tablebg"
           >
             <span className="mt-[6px] h-3 w-3 rotate-45 border-l border-t border-white"></span>
           </div>

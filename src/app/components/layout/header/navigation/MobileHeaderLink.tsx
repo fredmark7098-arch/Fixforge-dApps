@@ -23,7 +23,7 @@ const MobileHeaderLink: React.FC<{
                 onNavigate?.();
               }
         }
-        className="flex items-center justify-between w-full py-2 text-white/90 hover:text-white focus:outline-hidden"
+        className="flex w-full items-center justify-between py-2 text-white/90 hover:text-amber-200 focus:outline-hidden"
       >
         {item.label}
         {item.submenu && (
@@ -45,13 +45,13 @@ const MobileHeaderLink: React.FC<{
         )}
       </Link>
       {submenuOpen && item.submenu && (
-        <div className="bg-white p-2 w-full">
+        <div className="mt-1 w-full rounded-lg border border-white/10 bg-white/5 p-2">
           {item.submenu.map((subItem, index) => (
             <Link
               key={index}
               href={subItem.href}
               onClick={() => onNavigate?.()}
-              className="block py-2 text-gray-500 hover:bg-gray-200"
+              className="block rounded-md py-2 text-white/70 hover:bg-amber-500/15 hover:text-amber-200"
             >
               {subItem.label}
             </Link>

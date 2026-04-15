@@ -7,8 +7,8 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="bg-body-bg relative pt-10">
-      <div className="bg-linear-to-r from-primary to-secondary hidden lg:block absolute w-full h-full top-0 -left-1/2 blur-390"></div>
+    <footer className="relative border-t border-amber-500/10 bg-body-bg pt-10">
+      <div className="pointer-events-none absolute top-0 -left-1/4 hidden h-full w-[150%] bg-linear-to-r from-amber-600/25 via-orange-700/15 to-transparent blur-[120px] lg:block" />
       <div className="container relative z-10 pb-16">
         <div className="grid grid-cols-1 gap-y-10 md:gap-x-16 sm:grid-cols-2 lg:grid-cols-12 xl:gap-x-8">
           <div className="lg:col-span-6 sm:col-span-2">
@@ -93,7 +93,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="py-8 px-4 border-t border-t-lightblue">
+      <div className="border-t border-white/10 px-4 py-8">
         <p className="text-center text-white">
           © 2026 Fixforge-dApps. All rights reserved.
         </p>
