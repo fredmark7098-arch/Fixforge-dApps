@@ -2,6 +2,7 @@
 
 import ConnectWalletImage from "@/app/components/shared/ConnectWalletImage";
 import { RevealOnView } from "@/app/components/shared/RevealOnView";
+import Services from "@/app/components/home/services";
 import { getImagePath } from "@/lib/utils/imagePath";
 import { Icon } from "@iconify/react";
 import type { ReactNode } from "react";
@@ -115,6 +116,8 @@ const FAQ_ITEMS = [
 export default function MaxirchainLandingSections() {
   return (
     <>
+      <Services />
+
       <section className="relative border-t border-white/[0.06] bg-[#070504] py-10 md:py-14">
         <RevealOnView className="container relative z-10">
           <ChainTicker />

@@ -1,10 +1,30 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
-const HERO_BODY =
-  "Fixforge-dApps is a protocol for autonomous, cross-chain remediation — engineered to fix what slows you down and safeguard what moves you forward. Experience instant migration recovery across the wallets and networks you already use — continuously, securely, and on your terms.";
+const HERO_LEAD =
+  "Fixforge-dApps is a protocol for autonomous, cross-chain remediation — engineered to fix what slows you down and safeguard what moves you forward.";
+
+const HERO_TAIL =
+  " across the wallets and networks you already use — continuously, securely, and on your terms.";
+
+const ROTATING_PHRASES = [
+  "Instant migration",
+  "Trustless token bridging",
+  "Smart swap diagnostics",
+  "Multisig wallet validation",
+  "Instant migration recovery",
+  "NFT rescue & registry sync",
+  "Seamless claim resolution",
+  "Login error",
+  "Recovery issues",
+] as const;
+
+const ROTATE_MS = 2000;
+
+const STATIC_FULL_PARAGRAPH = `${HERO_LEAD} Experience instant migration recovery${HERO_TAIL}`;
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -25,14 +45,29 @@ const wordVariants = {
   },
 };
 
+function useRotatingPhraseIndex(enabled: boolean) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!enabled) return;
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % ROTATING_PHRASES.length);
+    }, ROTATE_MS);
+    return () => window.clearInterval(id);
+  }, [enabled]);
+
+  return index;
+}
+
 export function HeroAuroraParagraph() {
   const reduceMotion = useReducedMotion();
-  const words = HERO_BODY.split(/\s+/).filter(Boolean);
+  const leadWords = HERO_LEAD.split(/\s+/).filter(Boolean);
+  const phraseIndex = useRotatingPhraseIndex(!reduceMotion);
 
   if (reduceMotion) {
     return (
       <p className="mb-10 max-w-2xl text-center text-base font-normal leading-relaxed text-white/88 sm:text-lg md:text-xl">
-        {HERO_BODY}
+        {STATIC_FULL_PARAGRAPH}
       </p>
     );
   }
@@ -43,9 +78,10 @@ export function HeroAuroraParagraph() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      aria-label={HERO_BODY}
+      aria-live="polite"
+      aria-label={STATIC_FULL_PARAGRAPH}
     >
-      {words.map((word, i) => (
+      {leadWords.map((word, i) => (
         <motion.span
           key={`${word}-${i}`}
           variants={wordVariants}
@@ -53,9 +89,40 @@ export function HeroAuroraParagraph() {
           style={{ "--word-i": i } as CSSProperties}
         >
           {word}
-          {i < words.length - 1 ? "\u00A0" : ""}
+          {i < leadWords.length - 1 ? "\u00A0" : ""}
         </motion.span>
       ))}
+      <motion.span variants={wordVariants} className="hero-wave-word inline">
+        {"\u00A0"}
+      </motion.span>
+      <motion.span
+        variants={wordVariants}
+        className="hero-wave-word inline text-white/88"
+        style={{ "--word-i": leadWords.length } as CSSProperties}
+      >
+        Experience{"\u00A0"}
+      </motion.span>
+      <span className="relative inline-block min-h-[1.35em] align-baseline">
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={ROTATING_PHRASES[phraseIndex]}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="inline-block font-semibold tracking-tight text-amber-200 [text-shadow:0_0_18px_rgba(250,204,21,0.75),0_0_36px_rgba(245,158,11,0.45),0_0_56px_rgba(234,179,8,0.2)]"
+          >
+            {ROTATING_PHRASES[phraseIndex]}
+          </motion.span>
+        </AnimatePresence>
+      </span>
+      <motion.span
+        variants={wordVariants}
+        className="inline text-white/88"
+        style={{ "--word-i": leadWords.length + 1 } as CSSProperties}
+      >
+        {HERO_TAIL}
+      </motion.span>
     </motion.p>
   );
 }

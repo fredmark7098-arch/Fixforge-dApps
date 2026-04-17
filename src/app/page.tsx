@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Banner from "./components/home/hero";
-import Services from "./components/home/services";
 import Companies from "./components/home/companies";
 import MaxirchainLandingSections from "./components/home/landing-maxirchain";
 import Work from "./components/home/work";
@@ -21,7 +20,6 @@ export default function Home() {
       <Companies />
 
       <MaxirchainLandingSections />
-      <Services />
       <Work />
       <Table />
       <Features />
