@@ -51,13 +51,13 @@ export const workdata: WorkType[] = [
     imgSrc: asset("/images/work/icon-two.svg"),
     heading: "Choose a network",
     subheading:
-      "Pick the chain or layer that fits your use case — each network runs its own consensus, validator set, and rules enforced by open-source clients.",
+      "Pick the chain or layer that fits your use case each network runs its own consensus, validator set, and rules enforced by open-source clients.",
   },
   {
     imgSrc: asset("/images/work/icon-three.svg"),
     heading: "Participate on-chain",
     subheading:
-      "Sign transactions, delegate stake, vote in governance, or run infrastructure — activity is replicated across nodes so no single operator defines the truth.",
+      "Sign transactions, delegate stake, vote in governance, or run infrastructure activity is replicated across nodes so no single operator defines the truth.",
   },
 ];
 
@@ -72,7 +72,7 @@ export const Featuresdata: FeatureType[] = [
     imgSrc: asset("/images/features/featureTwo.svg"),
     heading: "Open participation",
     subheading:
-      "Anyone can run a node, audit the code, or submit transactions — permissionless design replaces gatekeepers with transparent protocol rules.",
+      "Anyone can run a node, audit the code, or submit transactions permissionless design replaces gatekeepers with transparent protocol rules.",
   },
   {
     imgSrc: asset("/images/features/featureThree.svg"),
@@ -117,7 +117,7 @@ export const Servicesdata: ServiceType[] = [
     icon: "tabler:key",
     heading: "Recovery",
     subheading:
-      "Restore access with seed Phrasees, hardware backups, and safe handling—never share keys blindly.",
+      "Restore access with seed Phrasees, hardware backups, and safe handling never share keys blindly.",
   },
   {
     icon: "tabler:alert-triangle",
@@ -171,7 +171,7 @@ export const Servicesdata: ServiceType[] = [
     icon: "tabler:sparkles",
     heading: "NFTs",
     subheading:
-      "Listings, transfers, hidden collections, and metadata refreshes—know the right chain and marketplace.",
+      "Listings, transfers, hidden collections, and metadata refreshes know the right chain and marketplace.",
   },
   {
     icon: "tabler:lock-square-rounded",
@@ -195,7 +195,7 @@ export const Servicesdata: ServiceType[] = [
     icon: "tabler:plant-2",
     heading: "DeFi farming",
     subheading:
-      "Pools, gauges, and reward schedules decoded—impermanent loss and exit timing in plain terms.",
+      "Pools, gauges, and reward schedules decoded impermanent loss and exit timing in plain terms.",
   },
   {
     icon: "tabler:device-mobile-exclamation",

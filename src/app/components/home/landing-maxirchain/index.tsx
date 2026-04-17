@@ -159,7 +159,7 @@ export default function MaxirchainLandingSections() {
           <>
             From swaps to bridges, we help you identify and fix cross-chain
             issues with repeatable workflows and clear guidance. We surface the
-            root cause—RPC, gas, liquidity, or policy—so you can resolve with
+            root cause RPC, gas, liquidity, or policy so you can resolve with
             minimal retries and fees.
           </>
         }
@@ -251,7 +251,7 @@ export default function MaxirchainLandingSections() {
           <>
             Observability, automation, and guided remediation built for every
             chain and wallet you already use. Fixforge-dApps integrates
-            seamlessly into your existing workflow—no new seed phrases, no
+            seamlessly into your existing workflow no new seed phrases, no
             migrations, just outcomes.
           </>
         }
@@ -318,7 +318,7 @@ export default function MaxirchainLandingSections() {
           <p className="mx-auto mb-12 max-w-3xl text-center text-base leading-relaxed text-white/70 md:text-lg">
             We&apos;re a distributed team building safer cross-chain experiences
             for everyone. Our mission is simple: remove friction and uncertainty
-            so people can just use crypto—safely.
+            so people can just use crypto— afely.
           </p>
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="order-2 lg:order-1">
@@ -335,7 +335,7 @@ export default function MaxirchainLandingSections() {
             <div className="order-1 lg:order-2">
               <p className="text-lg leading-relaxed text-white/75">
                 We focus on clear guidance, reversible steps, and tooling that
-                fits the wallets and networks you already use—so you can move
+                fits the wallets and networks you already use so you can move
                 faster without giving up custody or control.
               </p>
             </div>
@@ -349,7 +349,7 @@ export default function MaxirchainLandingSections() {
             Contact Us
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
-            Need help right now? Use the form below or reach out—we&apos;ll guide
+            Need help right now? Use the form below or reach out we&apos;ll guide
             you step-by-step with clear, safe actions once you&apos;re connected.
           </p>
         </RevealOnView>
