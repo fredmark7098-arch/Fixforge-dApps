@@ -12,11 +12,22 @@ const Footer = () => {
       <div className="container relative z-10 pb-16">
         <div className="grid grid-cols-1 gap-y-10 md:gap-x-16 sm:grid-cols-2 lg:grid-cols-12 xl:gap-x-8">
           <div className="lg:col-span-6 sm:col-span-2">
-            <img
-              className="block h-12 w-20px mb-4"
-              src={getImagePath("/images/logo/logo.png")}
-              alt="Fixforge-dApps"
-            />
+            <Link
+              href="/"
+              className="mb-4 inline-flex items-center gap-2.5"
+              aria-label="Fixforge-dApps home"
+            >
+              <Image
+                src={getImagePath("/images/logo/logo.png")}
+                alt=""
+                width={40}
+                height={40}
+                className="h-9 w-9 shrink-0 sm:h-10 sm:w-10"
+              />
+              <span className="text-lg font-semibold tracking-tight text-white sm:text-xl">
+                Fixforge-dApps
+              </span>
+            </Link>
             <p className="text-white/60 text-sm font-normal max-w-96 leading-7 mb-7">
               We highlight how decentralized systems spread trust across many
               nodes transparent rules, cryptographic proofs, and open
