@@ -116,13 +116,13 @@ const FAQ_ITEMS = [
 export default function MaxirchainLandingSections() {
   return (
     <>
-      <Services />
-
       <section className="relative border-t border-white/[0.06] bg-[#070504] py-10 md:py-14">
         <RevealOnView className="container relative z-10">
           <ChainTicker />
         </RevealOnView>
       </section>
+
+      <Services />
 
       <Showcase
         id="wallet-troubleshooter"
