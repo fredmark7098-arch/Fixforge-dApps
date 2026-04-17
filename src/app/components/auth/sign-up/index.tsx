@@ -6,7 +6,7 @@ import Loader from '../../shared/Loader'
 const SignUp = () => {
   return (
     <>
-      <div className='mb-10 text-center mx-auto inline-block max-w-[160px]'>
+      <div className="mb-10 flex justify-center">
         <Logo />
       </div>
 
