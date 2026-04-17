@@ -11,7 +11,7 @@ const HERO_TAIL =
   " across the wallets and networks you already use — continuously, securely, and on your terms.";
 
 const ROTATING_PHRASES = [
-  "Instant migration",
+  
   "Trustless token bridging",
   "Smart swap diagnostics",
   "Multisig wallet validation",
