@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const HERO_LEAD =
-  "Fixforge-dApps is a protocol for autonomous, cross-chain remediation — engineered to fix what slows you down and safeguard what moves you forward.";
+  "Fixforge-dApps is a protocol for autonomous, cross-chain remediation engineered to fix what slows you down and safeguard what moves you forward.";
 
 const HERO_TAIL =
-  " across the wallets and networks you already use — continuously, securely, and on your terms.";
+  " across the wallets and networks you already use continuously, securely, and on your terms.";
 
 const ROTATING_PHRASES = [
   "locked account issues",

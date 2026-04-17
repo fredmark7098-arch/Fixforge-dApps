@@ -62,7 +62,7 @@ const Banner = () => {
           </div>
 
           <h1 className="hero-enter hero-enter-delay-1 mb-6 max-w-4xl bg-gradient-to-b from-amber-100 via-yellow-50 to-white/90 bg-clip-text text-3xl font-bold leading-[1.15] text-transparent drop-shadow-[0_0_28px_rgba(251,191,36,0.2)] sm:text-4xl md:text-5xl lg:text-6xl">
-            Fixforge-dApps — All Chains Resolver
+            Fixforge-dApps All Chains Resolver
           </h1>
 
           <HeroAuroraParagraph />
