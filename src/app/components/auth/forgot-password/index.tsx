@@ -57,18 +57,11 @@ const ForgotPassword = () => {
               <div className="mb-10 text-center">
                 <Link href="/" className="mx-auto inline-block max-w-[160px]">
                   <Image
-                    src={getImagePath("/images/logo/logo.svg")}
-                    alt="logo"
-                    width={140}
-                    height={30}
-                    className="dark:hidden"
-                  />
-                  <Image
-                    src={getImagePath("/images/logo/logo-white.svg")}
-                    alt="logo"
-                    width={140}
-                    height={30}
-                    className="hidden dark:block"
+                    src={getImagePath("/images/logo/logo.png")}
+                    alt="Fixforge-dApps"
+                    width={160}
+                    height={48}
+                    className="mx-auto h-auto w-auto max-w-[160px]"
                   />
                 </Link>
               </div>

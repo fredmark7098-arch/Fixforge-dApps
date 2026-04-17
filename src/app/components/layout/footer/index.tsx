@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="lg:col-span-6 sm:col-span-2">
             <img
               className="block h-12 w-20px mb-4"
-              src={getImagePath("/images/logo/logo.svg")}
+              src={getImagePath("/images/logo/logo.png")}
               alt="Fixforge-dApps"
             />
             <p className="text-white/60 text-sm font-normal max-w-96 leading-7 mb-7">

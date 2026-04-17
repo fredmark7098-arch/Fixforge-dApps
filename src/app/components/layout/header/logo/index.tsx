@@ -8,7 +8,7 @@ const Logo: React.FC = () => {
   return (
     <Link href="/" className="flex items-center" aria-label="Fixforge-dApps home">
       <Image
-        src={getImagePath("/images/logo/logo.svg")}
+        src={getImagePath("/images/logo/logo.png")}
         alt="Fixforge-dApps"
         width={220}
         height={50}
