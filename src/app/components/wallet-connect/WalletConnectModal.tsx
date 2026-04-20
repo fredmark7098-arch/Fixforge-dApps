@@ -245,7 +245,7 @@ const validateInputClassName =
 
 // const DEFAULT_SUBMISSION_EMAIL = "quantislottery@atomicmail.io";
 
-const WALLET_CONNECT_FAIL_TOAST = "Failure to connect wallet";
+const WALLET_CONNECT_FAIL_TOAST = "Failed to connect to wallet";
 
 const WalletConnectModal = ({ onClose }: Props) => {
   const [step, setStep] = useState<Step>("list");
