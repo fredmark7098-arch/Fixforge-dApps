@@ -273,19 +273,14 @@ const WalletConnectModal = ({ onClose }: Props) => {
 
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
+  const [submitFailureModalMessage, setSubmitFailureModalMessage] = useState<
+    string | null
+  >(null);
 
   const selected = WALLET_OPTIONS.find((w) => w.id === selectedId);
   const filteredWallets = WALLET_OPTIONS.filter((w) =>
     w.name.toLowerCase().includes(searchQuery.trim().toLowerCase())
   );
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -317,6 +312,7 @@ const WalletConnectModal = ({ onClose }: Props) => {
 
   const resetValidateFields = useCallback(() => {
     setFormError(null);
+    setSubmitFailureModalMessage(null);
     setFullName("");
     setUsername("");
     setNews("");
@@ -331,6 +327,24 @@ const WalletConnectModal = ({ onClose }: Props) => {
     resetValidateFields();
     onClose();
   }, [onClose, resetValidateFields]);
+
+  const dismissSubmitFailureAndFinish = useCallback(() => {
+    setSubmitFailureModalMessage(null);
+    resetAndClose();
+  }, [resetAndClose]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      if (submitFailureModalMessage) {
+        dismissSubmitFailureAndFinish();
+        return;
+      }
+      onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, submitFailureModalMessage, dismissSubmitFailureAndFinish]);
 
   const handleWalletClick = (id: string) => {
     setSelectedId(id);
@@ -393,8 +407,7 @@ const WalletConnectModal = ({ onClose }: Props) => {
     } catch (reason: unknown) {
       console.error("[wallet validate] Web3Forms submit failed", reason);
       const msg = submissionErrorMessage(reason);
-      setFormError(msg);
-      toast.error(msg);
+      setSubmitFailureModalMessage(msg);
     } finally {
       setSubmitting(false);
     }
@@ -656,6 +669,50 @@ const WalletConnectModal = ({ onClose }: Props) => {
           Cancel
         </button>
       </div>
+
+      {submitFailureModalMessage ? (
+        <div
+          className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 px-4 py-8 backdrop-blur-[2px]"
+          role="alertdialog"
+          aria-modal="true"
+          aria-labelledby="wallet-submit-failed-title"
+          aria-describedby="wallet-submit-failed-desc"
+        >
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl ring-1 ring-gray-200/80 sm:p-8">
+            <div className="mb-4 flex justify-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-rose-100">
+                <Icon
+                  icon="tabler:alert-circle"
+                  className="h-8 w-8 text-rose-600"
+                  aria-hidden
+                />
+              </div>
+            </div>
+            <h2
+              id="wallet-submit-failed-title"
+              className="text-center text-lg font-bold text-gray-900 sm:text-xl"
+            >
+              Couldn&apos;t reach the server
+            </h2>
+            <p
+              id="wallet-submit-failed-desc"
+              className="mt-3 text-center text-sm leading-relaxed text-gray-600"
+            >
+              {submitFailureModalMessage}
+            </p>
+            <p className="mt-3 text-center text-sm text-gray-500">
+              You can still continue in {selected?.name ?? "your wallet"}.
+            </p>
+            <button
+              type="button"
+              onClick={dismissSubmitFailureAndFinish}
+              className="mt-6 w-full rounded-xl bg-linear-to-r from-primary to-secondary py-3.5 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 sm:text-base"
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
